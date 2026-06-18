@@ -1,0 +1,114 @@
+info:
+  name: Attachments(prima chiamata)
+  type: http
+  seq: 9
+
+http:
+  method: GET
+  url: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_CV_ATTACHMENT_SRV/GetAllOriginals?BusinessObjectTypeName='BUS1001006'&LinkedSAPObjectKey='DISTDIRS065SA1'
+  params:
+    - name: BusinessObjectTypeName
+      value: "'BUS1001006'"
+      type: query
+    - name: LinkedSAPObjectKey
+      value: "'DISTDIRS065SA1'"
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_CV_ATTACHMENT_SRV/GetAllOriginals?BusinessObjectTypeName='BUS1001006'&LinkedSAPObjectKey='DISTDIRS065SA1'
+      method: GET
+      params:
+        - name: BusinessObjectTypeName
+          value: "'BUS1001006'"
+          type: query
+        - name: LinkedSAPObjectKey
+          value: "'DISTDIRS065SA1'"
+          type: query
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: content-type
+          value: application/json; charset=utf-8
+        - name: content-length
+          value: "700"
+        - name: sap-authenticated
+          value: "true"
+        - name: dataserviceversion
+          value: "2.0"
+        - name: sap-metadata-last-modified
+          value: Sun, 14 Jun 2026 00:07:36 GMT
+        - name: cache-control
+          value: no-store, no-cache
+        - name: sap-processing-info
+          value: ODataBEP=,crp=,RAL=,st=,MedCacheHub=Table,codeployed=X,softstate=
+        - name: sap-server
+          value: "true"
+        - name: sap-perf-fesrec
+          value: "561893.000000"
+        - name: x-content-type-options
+          value: nosniff
+        - name: strict-transport-security
+          value: max-age=31536000; includeSubDomains
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: sap-passport-component
+          value: none
+      body:
+        type: json
+        data: |-
+          {
+            "d": {
+              "results": [
+                {
+                  "__metadata": {
+                    "id": "https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_CV_ATTACHMENT_SRV/AttachmentContentSet(DocumentInfoRecordDocType='GOS',DocumentInfoRecordDocNumber='EXT51000000000115',DocumentInfoRecordDocVersion='',DocumentInfoRecordDocPart='',LogicalDocument='FA163EF8D1E51FE19AAC1B47A5320285',ArchiveDocumentID='FA163EF8D1E51FE19AAC1B47A5322285',LinkedSAPObjectKey='DISTDIRS065SA1',BusinessObjectTypeName='BUS1001006')",
+                    "uri": "https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_CV_ATTACHMENT_SRV/AttachmentContentSet(DocumentInfoRecordDocType='GOS',DocumentInfoRecordDocNumber='EXT51000000000115',DocumentInfoRecordDocVersion='',DocumentInfoRecordDocPart='',LogicalDocument='FA163EF8D1E51FE19AAC1B47A5320285',ArchiveDocumentID='FA163EF8D1E51FE19AAC1B47A5322285',LinkedSAPObjectKey='DISTDIRS065SA1',BusinessObjectTypeName='BUS1001006')",
+                    "type": "API_CV_ATTACHMENT_SRV.AttachmentContent",
+                    "content_type": "image/png",
+                    "media_src": "https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_CV_ATTACHMENT_SRV/AttachmentContentSet(DocumentInfoRecordDocType='GOS',DocumentInfoRecordDocNumber='EXT51000000000115',DocumentInfoRecordDocVersion='',DocumentInfoRecordDocPart='',LogicalDocument='FA163EF8D1E51FE19AAC1B47A5320285',ArchiveDocumentID='FA163EF8D1E51FE19AAC1B47A5322285',LinkedSAPObjectKey='DISTDIRS065SA1',BusinessObjectTypeName='BUS1001006')/$value"
+                  },
+                  "DocumentInfoRecordDocType": "GOS",
+                  "DocumentInfoRecordDocNumber": "EXT51000000000115",
+                  "DocumentInfoRecordDocVersion": "",
+                  "DocumentInfoRecordDocPart": "",
+                  "LogicalDocument": "FA163EF8D1E51FE19AAC1B47A5320285",
+                  "ArchiveDocumentID": "FA163EF8D1E51FE19AAC1B47A5322285",
+                  "LinkedSAPObjectKey": "DISTDIRS065SA1",
+                  "BusinessObjectTypeName": "BUS1001006",
+                  "SemanticObject": "",
+                  "WorkstationApplication": "",
+                  "FileSize": "433501",
+                  "FileName": "Gar.png",
+                  "DocumentURL": "",
+                  "MimeType": "image/png",
+                  "Content": "",
+                  "CreatedByUser": "CB9980000042",
+                  "CreatedByUserFullName": "Claudio Michelotti",
+                  "CreationDateTime": "/Date(1781600012000)/",
+                  "BusinessObjectType": "BUS1001006",
+                  "LastChangedByUser": "",
+                  "LastChangedByUserFullName": "",
+                  "ChangedDateTime": null,
+                  "StorageCategory": "SOMU",
+                  "ArchiveLinkRepository": "",
+                  "SAPObjectType": "",
+                  "SAPObjectNodeType": "",
+                  "HarmonizedDocumentType": "GOS",
+                  "AttachmentDeletionIsAllowed": true,
+                  "AttachmentRenameIsAllowed": false,
+                  "Source": "GOS",
+                  "AttachmentContentHash": "{sha-256}dfa1d7afd8b9aafbe0ce25df089872146d8a26fa0abd14a6730af640acf6fe8e"
+                }
+              ]
+            }
+          }

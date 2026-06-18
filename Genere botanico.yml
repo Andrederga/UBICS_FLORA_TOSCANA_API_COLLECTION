@@ -1,0 +1,97 @@
+info:
+  name: Genere botanico
+  type: http
+  seq: 7
+
+http:
+  method: GET
+  url: https://my427213-api.s4hana.cloud.sap/sap/opu/odata4/sap/za_generebotanico/srvd_a2x/sap/za_generebotanico/0001/GenereBotanico?$top=2&$expand=_Texts
+  params:
+    - name: $top
+      value: "2"
+      type: query
+    - name: $expand
+      value: _Texts
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: https://my427213-api.s4hana.cloud.sap/sap/opu/odata4/sap/za_generebotanico/srvd_a2x/sap/za_generebotanico/0001/GenereBotanico?$top=2&$expand=_Texts
+      method: GET
+      params:
+        - name: $top
+          value: "2"
+          type: query
+        - name: $expand
+          value: _Texts
+          type: query
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: content-type
+          value: application/json;odata.metadata=minimal;charset=utf-8
+        - name: content-length
+          value: "458"
+        - name: sap-authenticated
+          value: "true"
+        - name: cache-control
+          value: no-cache, no-store, must-revalidate
+        - name: odata-version
+          value: "4.0"
+        - name: sap-server
+          value: "true"
+        - name: sap-perf-fesrec
+          value: "228295.000000"
+        - name: x-content-type-options
+          value: nosniff
+        - name: strict-transport-security
+          value: max-age=31536000; includeSubDomains
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: sap-passport-component
+          value: none
+      body:
+        type: json
+        data: |-
+          {
+            "@odata.context": "$metadata#GenereBotanico(_Texts())",
+            "@odata.metadataEtag": "W/\"20260615132825\"",
+            "value": [
+              {
+                "GenereBotanico": "1",
+                "LastChanged": "2026-05-07T12:30:33.576561Z",
+                "_Texts": [
+                  {
+                    "GenereBotanico": "1",
+                    "Language": "IT",
+                    "Descrizione": "ACACIA"
+                  },
+                  {
+                    "GenereBotanico": "1",
+                    "Language": "EN",
+                    "Descrizione": "test"
+                  }
+                ]
+              },
+              {
+                "GenereBotanico": "10",
+                "LastChanged": "2026-05-05T12:11:13.184135Z",
+                "_Texts": [
+                  {
+                    "GenereBotanico": "10",
+                    "Language": "IT",
+                    "Descrizione": "ALSTROEMERIA"
+                  }
+                ]
+              }
+            ]
+          }

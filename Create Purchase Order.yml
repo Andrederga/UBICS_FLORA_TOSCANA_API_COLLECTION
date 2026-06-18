@@ -1,0 +1,395 @@
+info:
+  name: Create Purchase Order
+  type: http
+  seq: 6
+
+http:
+  method: POST
+  url: https://my427213-api.s4hana.cloud.sap/sap/opu/odata4/sap/api_purchaseorder_2/srvd_a2x/sap/purchaseorder/0001/PurchaseOrder
+  headers:
+    - name: X-CSRF-Token
+      value: AKiXwDkbSpzJtAcxGCUwKw==
+  body:
+    type: json
+    data: |-
+      {
+        "PurchaseOrderType": "NB",
+        "CompanyCode": "IT10",
+        "PurchasingOrganization": "PF10",
+        "PurchasingGroup": "A01",
+        "Supplier": "1000009",
+        "DocumentCurrency": "EUR",
+        "_PurchaseOrderItem": [
+          {
+            "PurchaseOrderItem": "10",
+            "Plant": "PF10",
+            "Material": "TULARANCIO40",
+            "PurchaseOrderQuantityUnit": "ST",
+            "OrderQuantity": 10,
+            "NetPriceAmount": 100.00,//Opzionale
+            "DocumentCurrency": "EUR",
+            "_PurchaseOrderScheduleLineTP": [
+              {
+                "ScheduleLine": "1",
+                "ScheduleLineDeliveryDate": "2026-06-15",
+                "ScheduleLineOrderQuantity": 10,
+                "PurchaseOrderQuantityUnit": "ST"
+              }
+            ]
+          }
+        ]
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: https://my427213-api.s4hana.cloud.sap/sap/opu/odata4/sap/api_purchaseorder_2/srvd_a2x/sap/purchaseorder/0001/PurchaseOrder
+      method: POST
+      headers:
+        - name: X-CSRF-Token
+          value: AKiXwDkbSpzJtAcxGCUwKw==
+      body:
+        type: json
+        data: |-
+          {
+            "PurchaseOrderType": "NB",
+            "CompanyCode": "IT10",
+            "PurchasingOrganization": "PF10",
+            "PurchasingGroup": "A01",
+            "Supplier": "1000009",
+            "DocumentCurrency": "EUR",
+            "_PurchaseOrderItem": [
+              {
+                "PurchaseOrderItem": "10",
+                "Plant": "PF10",
+                "Material": "TULARANCIO40",
+                "PurchaseOrderQuantityUnit": "ST",
+                "OrderQuantity": 10,
+                "NetPriceAmount": 100.00,//Opzionale
+                "DocumentCurrency": "EUR",
+                "_PurchaseOrderScheduleLineTP": [
+                  {
+                    "ScheduleLine": "1",
+                    "ScheduleLineDeliveryDate": "2026-06-15",
+                    "ScheduleLineOrderQuantity": 10,
+                    "PurchaseOrderQuantityUnit": "ST"
+                  }
+                ]
+              }
+            ]
+          }
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: content-type
+          value: application/json;odata.metadata=minimal;charset=utf-8
+        - name: content-length
+          value: "2360"
+        - name: sap-authenticated
+          value: "true"
+        - name: location
+          value: PurchaseOrder('4500000141')
+        - name: odata-version
+          value: "4.0"
+        - name: cache-control
+          value: no-cache, no-store, must-revalidate
+        - name: sap-server
+          value: "true"
+        - name: sap-perf-fesrec
+          value: "45866502.000000"
+        - name: x-content-type-options
+          value: nosniff
+        - name: strict-transport-security
+          value: max-age=31536000; includeSubDomains
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: sap-passport-component
+          value: none
+      body:
+        type: json
+        data: |-
+          {
+            "@odata.context": "$metadata#PurchaseOrder(_PurchaseOrderItem(_PurchaseOrderScheduleLineTP()))/$entity",
+            "@odata.metadataEtag": "W/\"20260618074302\"",
+            "PurchaseOrder": "4500000141",
+            "PurchaseOrderType": "NB",
+            "PurchaseOrderSubtype": "",
+            "PurchasingDocumentOrigin": "9",
+            "PurchasingDocumentProcessCode": "",
+            "CreatedByUser": "CC0000000004",
+            "CreationDate": "2026-06-18",
+            "PurchaseOrderDate": "2026-06-18",
+            "LastChangeDateTime": "2026-06-18T07:43:44.366401Z",
+            "ValidityStartDate": null,
+            "ValidityEndDate": null,
+            "MsgOnGoodsReceiptIsRequested": false,
+            "Language": "EN",
+            "PurchaseOrderDeletionCode": "",
+            "ReleaseIsNotCompleted": true,
+            "PurchasingCompletenessStatus": false,
+            "PurchasingProcessingStatus": "03",
+            "PurgReleaseSequenceStatus": "",
+            "ReleaseCode": "",
+            "PurchasingReleaseStrategy": "",
+            "PurgReasonForDocCancellation": "0",
+            "CompanyCode": "IT10",
+            "PurchasingOrganization": "PF10",
+            "PurchasingGroup": "A01",
+            "Supplier": "1000009",
+            "ManualSupplierAddressID": "",
+            "SupplierAddressID": "",
+            "SupplierRespSalesPersonName": "",
+            "SupplierPhoneNumber": "",
+            "SupplyingSupplier": "",
+            "SupplyingPlant": "",
+            "InvoicingParty": "1000009",
+            "Customer": "",
+            "PurchaseContract": "",
+            "SupplierQuotationExternalID": "",
+            "QuotationSubmissionDate": null,
+            "ItemNumberIntervalForSubItems": "1",
+            "PaymentTerms": "",
+            "CashDiscount1Days": 0,
+            "CashDiscount2Days": 0,
+            "NetPaymentDays": 0,
+            "CashDiscount1Percent": 0,
+            "CashDiscount2Percent": 0,
+            "DownPaymentType": "",
+            "DownPaymentPercentageOfTotAmt": 0,
+            "DownPaymentAmount": 0,
+            "DownPaymentDueDate": null,
+            "IncotermsClassification": "",
+            "IncotermsTransferLocation": "",
+            "IncotermsVersion": "",
+            "IncotermsLocation1": "",
+            "IncotermsLocation2": "",
+            "IsIntrastatReportingRelevant": true,
+            "IsIntrastatReportingExcluded": false,
+            "CorrespncExternalReference": "",
+            "CorrespncInternalReference": "",
+            "PricingDocument": "1000000400",
+            "PricingProcedure": "Z23001",
+            "DocumentCurrency": "EUR",
+            "ExchangeRate": 1,
+            "ExchangeRateIsFixed": false,
+            "TaxReturnCountry": "IT",
+            "VATRegistrationCountry": "IT",
+            "PurgAggrgdProdCmplncSuplrSts": "",
+            "PurgAggrgdProdMarketabilitySts": "",
+            "PurgAggrgdSftyDataSheetStatus": "",
+            "PurgProdCmplncTotDngrsGoodsSts": "",
+            "PurchasingCollectiveNumber": "",
+            "SAP__Messages": [],
+            "_PurchaseOrderItem": [
+              {
+                "PurchaseOrder": "4500000141",
+                "PurchaseOrderItem": "10",
+                "PurchaseOrderCategory": "F",
+                "DocumentCurrency": "EUR",
+                "PurchasingDocumentDeletionCode": "",
+                "MaterialGroup": "Z101",
+                "Material": "TULARANCIO40",
+                "MaterialType": "HAWA",
+                "SupplierMaterialNumber": "",
+                "SupplierSubrange": "",
+                "ManufacturerPartNmbr": "",
+                "Manufacturer": "",
+                "ManufacturerMaterial": "TULARANCIO40",
+                "PurchaseOrderItemText": "TULIPANO ARANCIO 40",
+                "ProductTypeCode": "1",
+                "CompanyCode": "IT10",
+                "Plant": "PF10",
+                "ManualDeliveryAddressID": "",
+                "ReferenceDeliveryAddressID": "119801",
+                "Customer": "",
+                "Subcontractor": "",
+                "SupplierIsSubcontractor": false,
+                "CrossPlantConfigurableProduct": "",
+                "ArticleCategory": "",
+                "PlndOrderReplnmtElmntType": "",
+                "ProductPurchasePointsQtyUnit": "",
+                "ProductPurchasePointsQty": 0,
+                "StorageLocation": "M002",
+                "PurchaseOrderQuantityUnit": "ST",
+                "OrderItemQtyToBaseQtyNmrtr": 1,
+                "OrderItemQtyToBaseQtyDnmntr": 1,
+                "NetPriceQuantity": 1,
+                "IsCompletelyDelivered": false,
+                "IsFinallyInvoiced": false,
+                "GoodsReceiptIsExpected": true,
+                "InvoiceIsExpected": true,
+                "IsOrderAcknRqd": false,
+                "InvoiceIsGoodsReceiptBased": false,
+                "PurchaseContract": "",
+                "PurchaseContractItem": "0",
+                "PurchaseRequisition": "",
+                "PurchaseRequisitionItem": "0",
+                "RequirementTracking": "",
+                "SupplierQuotation": "",
+                "SupplierQuotationItem": "0",
+                "EvaldRcptSettlmtIsAllowed": false,
+                "UnlimitedOverdeliveryIsAllowed": false,
+                "OverdelivTolrtdLmtRatioInPct": 0,
+                "UnderdelivTolrtdLmtRatioInPct": 0,
+                "RequisitionerName": "",
+                "PlannedDeliveryDurationInDays": 1,
+                "GoodsReceiptDurationInDays": 0,
+                "PartialDeliveryIsAllowed": "",
+                "ConsumptionPosting": "",
+                "ServicePerformer": "",
+                "ServicePackage": "0",
+                "BaseUnit": "ST",
+                "PurchaseOrderItemCategory": "0",
+                "ProfitCenter": "FT_FP",
+                "OrderPriceUnit": "ST",
+                "ItemVolumeUnit": "",
+                "ItemWeightUnit": "KG",
+                "MultipleAcctAssgmtDistribution": "",
+                "PartialInvoiceDistribution": "",
+                "PricingDateControl": "",
+                "IsStatisticalItem": false,
+                "PurchasingParentItem": "0",
+                "GoodsReceiptLatestCreationDate": null,
+                "IsReturnsItem": false,
+                "PurchasingOrderReason": "",
+                "IncotermsClassification": "",
+                "IncotermsTransferLocation": "",
+                "IncotermsLocation1": "",
+                "IncotermsLocation2": "",
+                "PriorSupplier": "",
+                "InternationalArticleNumber": "",
+                "IntrastatServiceCode": "",
+                "CommodityCode": "",
+                "MaterialFreightGroup": "",
+                "DiscountInKindEligibility": "",
+                "PurgItemIsBlockedForDelivery": false,
+                "SupplierConfirmationControlKey": "",
+                "PurgDocOrderAcknNumber": "",
+                "PriceIsToBePrinted": true,
+                "AccountAssignmentCategory": "",
+                "PurchasingInfoRecord": "",
+                "NetAmount": 1000,
+                "GrossAmount": 1000,
+                "EffectiveAmount": 1000,
+                "Subtotal1Amount": 0,
+                "Subtotal2Amount": 0,
+                "Subtotal3Amount": 1000,
+                "Subtotal4Amount": 0,
+                "Subtotal5Amount": 0,
+                "Subtotal6Amount": 0,
+                "OrderQuantity": 10,
+                "NetPriceAmount": 100,
+                "ItemVolume": 0,
+                "ItemGrossWeight": 1,
+                "ItemNetWeight": 1,
+                "OrderPriceUnitToOrderUnitNmrtr": 1,
+                "OrdPriceUnitToOrderUnitDnmntr": 1,
+                "GoodsReceiptIsNonValuated": false,
+                "IsToBeAcceptedAtOrigin": false,
+                "TaxCode": "",
+                "TaxJurisdiction": "",
+                "TaxCountry": "",
+                "TaxDeterminationDate": "2026-06-15",
+                "ShippingInstruction": "",
+                "MaterialRevisionLevel": "",
+                "NonDeductibleInputTaxAmount": 0,
+                "StockType": "",
+                "ValuationType": "",
+                "ValuationCategory": "",
+                "ItemIsRejectedBySupplier": false,
+                "PurgDocPriceDate": "2026-06-18",
+                "PurchasingInfoRecordUpdateCode": "",
+                "PurchasingPriceIsEstimated": false,
+                "InvoiceIsMMServiceEntryBased": false,
+                "InventorySpecialStockType": "",
+                "DeliveryDocumentType": "",
+                "IssuingStorageLocation": "",
+                "AllocationTable": "",
+                "AllocationTableItem": "0",
+                "RetailPromotion": "",
+                "PurgConfigurableItemNumber": "",
+                "PurgDocAggrgdSubitemCategory": "",
+                "PurgExternalSortNumber": "0",
+                "Batch": "",
+                "PurchasingItemIsFreeOfCharge": false,
+                "DownPaymentType": "",
+                "DownPaymentPercentageOfTotAmt": 0,
+                "DownPaymentAmount": 0,
+                "DownPaymentDueDate": null,
+                "ExpectedOverallLimitAmount": 0,
+                "OverallLimitAmount": 0,
+                "PurContractForOverallLimit": "",
+                "PurContractItemForOverallLimit": "0",
+                "PurgProdCmplncSupplierStatus": "",
+                "PurgProductMarketabilityStatus": "",
+                "PurgSafetyDataSheetStatus": "",
+                "PurgProdCmplncDngrsGoodsStatus": "",
+                "BR_MaterialOrigin": "",
+                "BR_MaterialUsage": "",
+                "BR_CFOPCategory": "",
+                "BR_NCM": "",
+                "ConsumptionTaxCtrlCode": "",
+                "BR_IsProducedInHouse": false,
+                "ProductSeasonYear": "",
+                "ProductSeason": "",
+                "ProductCollection": "",
+                "ProductTheme": "",
+                "SeasonCompletenessStatus": "",
+                "ShippingGroupRule": "",
+                "ShippingGroupNumber": "",
+                "ProductCharacteristic1": "",
+                "ProductCharacteristic2": "",
+                "ProductCharacteristic3": "",
+                "PurgDocSubitemCategory": "",
+                "DiversionStatus": "",
+                "ReferenceDocumentNumber": "",
+                "ReferenceDocumentItem": "0",
+                "PurchaseOrderReferenceType": "",
+                "ItemHasValueAddedService": false,
+                "ValAddedSrvcParentItmNumber": "0",
+                "StockSegment": "",
+                "YY1_Liquidazione_PDI": false,
+                "SAP__Messages": [],
+                "_PurchaseOrderScheduleLineTP": [
+                  {
+                    "PurchaseOrder": "4500000141",
+                    "PurchaseOrderItem": "10",
+                    "ScheduleLine": "1",
+                    "ScheduleLineDeliveryDate": "2026-06-15",
+                    "SchedLineStscDeliveryDate": "2026-06-15",
+                    "PerformancePeriodStartDate": null,
+                    "PerformancePeriodEndDate": null,
+                    "ScheduleLineDeliveryTime": "00:00:00",
+                    "Batch": "",
+                    "BatchBySupplier": "",
+                    "ScheduleLineOrderQuantity": 10,
+                    "OpenPurchaseOrderQuantity": 10,
+                    "PurchaseOrderQuantityUnit": "ST",
+                    "Currency": "EUR",
+                    "PurchaseRequisition": "",
+                    "PurchaseRequisitionItem": "0",
+                    "DelivDateCategory": "1",
+                    "ScheduleLineOrderDate": "2026-06-18",
+                    "ProductAvailabilityDate": null,
+                    "LoadingDate": null,
+                    "LoadingTime": "00:00:00",
+                    "TransportationPlanningDate": null,
+                    "TransportationPlanningTime": "00:00:00",
+                    "GoodsIssueDate": null,
+                    "GoodsIssueTime": "00:00:00",
+                    "RouteSchedule": "",
+                    "ProductAvailabilityTime": "00:00:00",
+                    "SAP__Messages": []
+                  }
+                ]
+              }
+            ]
+          }

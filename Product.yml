@@ -1,0 +1,266 @@
+info:
+  name: Product
+  type: http
+  seq: 5
+
+http:
+  method: GET
+  url: https://my427213-api.s4hana.cloud.sap/sap/opu/odata4/sap/api_product/srvd_a2x/sap/product/0003/Product?$top=2
+  params:
+    - name: $top
+      value: "2"
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: https://my427213-api.s4hana.cloud.sap/sap/opu/odata4/sap/api_product/srvd_a2x/sap/product/0003/Product?$top=2
+      method: GET
+      params:
+        - name: $top
+          value: "2"
+          type: query
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: content-type
+          value: application/json;odata.metadata=minimal;charset=utf-8
+        - name: content-length
+          value: "1211"
+        - name: sap-authenticated
+          value: "true"
+        - name: odata-version
+          value: "4.0"
+        - name: cache-control
+          value: no-cache, no-store, must-revalidate
+        - name: sap-server
+          value: "true"
+        - name: sap-perf-fesrec
+          value: "284161.000000"
+        - name: x-content-type-options
+          value: nosniff
+        - name: strict-transport-security
+          value: max-age=31536000; includeSubDomains
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: sap-passport-component
+          value: none
+      body:
+        type: json
+        data: |-
+          {
+            "@odata.context": "$metadata#Product",
+            "@odata.metadataEtag": "W/\"20260617130653\"",
+            "value": [
+              {
+                "@odata.etag": "W/\"SADL-202604020808130000000C~20260402080813.0000000\"",
+                "Product": "4",
+                "ProductType": "FERT",
+                "CreationDate": "2025-10-10",
+                "CreationTime": "09:57:37",
+                "CreationDateTime": "2025-10-10T09:57:37Z",
+                "CreatedByUser": "CB9980000042",
+                "LastChangeDate": "2026-04-02",
+                "LastChangedByUser": "CB9980000080",
+                "IsMarkedForDeletion": false,
+                "CrossPlantStatus": "",
+                "CrossPlantStatusValidityDate": null,
+                "ProductOldID": "",
+                "GrossWeight": 0,
+                "WeightUnit": "KG",
+                "WeightISOUnit": "KGM",
+                "ProductGroup": "L004",
+                "BaseUnit": "ST",
+                "BaseISOUnit": "PCE",
+                "ItemCategoryGroup": "",
+                "NetWeight": 0,
+                "Division": "",
+                "VolumeUnit": "",
+                "VolumeISOUnit": "",
+                "ProductVolume": 0,
+                "AuthorizationGroup": "",
+                "ANPCode": "0",
+                "SizeOrDimensionText": "",
+                "IndustryStandardName": "",
+                "ProductStandardID": "",
+                "InternationalArticleNumberCat": "",
+                "ProductIsConfigurable": false,
+                "IsBatchManagementRequired": false,
+                "ExternalProductGroup": "",
+                "CrossPlantConfigurableProduct": "",
+                "SerialNoExplicitnessLevel": "",
+                "IsApprovedBatchRecordReqd": false,
+                "HandlingIndicator": "",
+                "WarehouseProductGroup": "",
+                "WarehouseStorageCondition": "",
+                "StandardHandlingUnitType": "",
+                "SerialNumberProfile": "",
+                "IsPilferable": false,
+                "IsRelevantForHzdsSubstances": false,
+                "QuarantinePeriod": 0,
+                "TimeUnitForQuarantinePeriod": "",
+                "QuarantinePeriodISOUnit": "",
+                "QualityInspectionGroup": "",
+                "HandlingUnitType": "",
+                "HasVariableTareWeight": false,
+                "MaximumPackagingLength": 0,
+                "MaximumPackagingWidth": 0,
+                "MaximumPackagingHeight": 0,
+                "MaximumCapacity": 0,
+                "OvercapacityTolerance": 0,
+                "UnitForMaxPackagingDimensions": "",
+                "MaxPackggDimensionISOUnit": "",
+                "BaseUnitSpecificProductLength": 0,
+                "BaseUnitSpecificProductWidth": 0,
+                "BaseUnitSpecificProductHeight": 0,
+                "ProductMeasurementUnit": "",
+                "ProductMeasurementISOUnit": "",
+                "ArticleCategory": "",
+                "IndustrySector": "M",
+                "LastChangeDateTime": "2026-04-02T08:08:13Z",
+                "LastChangeTime": "08:08:13",
+                "DangerousGoodsIndProfile": "",
+                "ProductDocumentChangeNumber": "",
+                "ProductDocumentPageCount": "0",
+                "ProductDocumentPageNumber": "",
+                "DocumentIsCreatedByCAD": false,
+                "ProductionOrInspectionMemoTxt": "",
+                "ProductionMemoPageFormat": "",
+                "ProductIsHighlyViscous": false,
+                "TransportIsInBulk": false,
+                "ProdEffctyParamValsAreAssigned": false,
+                "ProdIsEnvironmentallyRelevant": false,
+                "LaboratoryOrDesignOffice": "",
+                "PackagingProductGroup": "",
+                "PackingReferenceProduct": "",
+                "BasicProduct": "",
+                "ProductDocumentNumber": "",
+                "ProductDocumentVersion": "",
+                "ProductDocumentType": "",
+                "ProductDocumentPageFormat": "",
+                "ProdChmlCmplncRelevanceCode": "",
+                "DiscountInKindEligibility": "",
+                "ProductManufacturerNumber": "",
+                "ManufacturerNumber": "",
+                "ManufacturerPartProfile": "",
+                "OwnInventoryManagedProduct": "",
+                "ProductConfiguration": "0",
+                "YY1_QuantitLimitata2_PRD": false,
+                "YY1_IndicazionediPeric_PRD": "",
+                "YY1_UsoPrevisto_PRD": "",
+                "YY1_Concentrazione_PRD": 0,
+                "YY1_NumeroONU2_PRD": "",
+                "YY1_GenereBotanico_PRD": "",
+                "SAP__Messages": []
+              },
+              {
+                "@odata.etag": "W/\"SADL-202512150908400000000C~20251215090840.0000000\"",
+                "Product": "5",
+                "ProductType": "FERT",
+                "CreationDate": "2025-10-16",
+                "CreationTime": "13:51:51",
+                "CreationDateTime": "2025-10-16T13:51:51Z",
+                "CreatedByUser": "CB9980000042",
+                "LastChangeDate": "2025-12-15",
+                "LastChangedByUser": "CB9980000080",
+                "IsMarkedForDeletion": false,
+                "CrossPlantStatus": "",
+                "CrossPlantStatusValidityDate": null,
+                "ProductOldID": "TEST",
+                "GrossWeight": 0,
+                "WeightUnit": "KG",
+                "WeightISOUnit": "KGM",
+                "ProductGroup": "Z201",
+                "BaseUnit": "ST",
+                "BaseISOUnit": "PCE",
+                "ItemCategoryGroup": "",
+                "NetWeight": 0,
+                "Division": "",
+                "VolumeUnit": "",
+                "VolumeISOUnit": "",
+                "ProductVolume": 0,
+                "AuthorizationGroup": "",
+                "ANPCode": "0",
+                "SizeOrDimensionText": "",
+                "IndustryStandardName": "",
+                "ProductStandardID": "",
+                "InternationalArticleNumberCat": "",
+                "ProductIsConfigurable": false,
+                "IsBatchManagementRequired": false,
+                "ExternalProductGroup": "",
+                "CrossPlantConfigurableProduct": "",
+                "SerialNoExplicitnessLevel": "",
+                "IsApprovedBatchRecordReqd": false,
+                "HandlingIndicator": "",
+                "WarehouseProductGroup": "",
+                "WarehouseStorageCondition": "",
+                "StandardHandlingUnitType": "",
+                "SerialNumberProfile": "",
+                "IsPilferable": false,
+                "IsRelevantForHzdsSubstances": false,
+                "QuarantinePeriod": 0,
+                "TimeUnitForQuarantinePeriod": "",
+                "QuarantinePeriodISOUnit": "",
+                "QualityInspectionGroup": "",
+                "HandlingUnitType": "",
+                "HasVariableTareWeight": false,
+                "MaximumPackagingLength": 0,
+                "MaximumPackagingWidth": 0,
+                "MaximumPackagingHeight": 0,
+                "MaximumCapacity": 0,
+                "OvercapacityTolerance": 0,
+                "UnitForMaxPackagingDimensions": "",
+                "MaxPackggDimensionISOUnit": "",
+                "BaseUnitSpecificProductLength": 0,
+                "BaseUnitSpecificProductWidth": 0,
+                "BaseUnitSpecificProductHeight": 0,
+                "ProductMeasurementUnit": "",
+                "ProductMeasurementISOUnit": "",
+                "ArticleCategory": "",
+                "IndustrySector": "M",
+                "LastChangeDateTime": "2025-12-15T09:08:40Z",
+                "LastChangeTime": "09:08:40",
+                "DangerousGoodsIndProfile": "",
+                "ProductDocumentChangeNumber": "",
+                "ProductDocumentPageCount": "0",
+                "ProductDocumentPageNumber": "",
+                "DocumentIsCreatedByCAD": false,
+                "ProductionOrInspectionMemoTxt": "",
+                "ProductionMemoPageFormat": "",
+                "ProductIsHighlyViscous": false,
+                "TransportIsInBulk": false,
+                "ProdEffctyParamValsAreAssigned": false,
+                "ProdIsEnvironmentallyRelevant": false,
+                "LaboratoryOrDesignOffice": "",
+                "PackagingProductGroup": "",
+                "PackingReferenceProduct": "",
+                "BasicProduct": "",
+                "ProductDocumentNumber": "",
+                "ProductDocumentVersion": "",
+                "ProductDocumentType": "",
+                "ProductDocumentPageFormat": "",
+                "ProdChmlCmplncRelevanceCode": "",
+                "DiscountInKindEligibility": "",
+                "ProductManufacturerNumber": "",
+                "ManufacturerNumber": "",
+                "ManufacturerPartProfile": "",
+                "OwnInventoryManagedProduct": "",
+                "ProductConfiguration": "0",
+                "YY1_QuantitLimitata2_PRD": false,
+                "YY1_IndicazionediPeric_PRD": "",
+                "YY1_UsoPrevisto_PRD": "",
+                "YY1_Concentrazione_PRD": 0,
+                "YY1_NumeroONU2_PRD": "",
+                "YY1_GenereBotanico_PRD": "",
+                "SAP__Messages": []
+              }
+            ]
+          }

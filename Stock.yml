@@ -1,0 +1,328 @@
+info:
+  name: Stock
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod?$top=100&$orderby=Material&$filter=StorageLocation eq 'M003'
+  params:
+    - name: $top
+      value: "100"
+      type: query
+    - name: $orderby
+      value: Material
+      type: query
+    - name: $filter
+      value: StorageLocation eq 'M003'
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod?$top=100&$orderby=Material&$filter=StorageLocation eq 'M003'
+      method: GET
+      params:
+        - name: $top
+          value: "100"
+          type: query
+        - name: $orderby
+          value: Material
+          type: query
+        - name: $filter
+          value: StorageLocation eq 'M003'
+          type: query
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: content-type
+          value: application/json; charset=utf-8
+        - name: content-length
+          value: "671"
+        - name: sap-authenticated
+          value: "true"
+        - name: sap-metadata-last-modified
+          value: Wed, 17 Jun 2026 12:57:44 GMT
+        - name: cache-control
+          value: no-store, no-cache
+        - name: dataserviceversion
+          value: "2.0"
+        - name: sap-processing-info
+          value: ODataBEP=,crp=,RAL=,st=X,MedCacheHub=Table,MedCacheBEP=Table,codeployed=X,softstate=
+        - name: sap-server
+          value: "true"
+        - name: sap-perf-fesrec
+          value: "84504.000000"
+        - name: x-content-type-options
+          value: nosniff
+        - name: strict-transport-security
+          value: max-age=31536000; includeSubDomains
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: sap-passport-component
+          value: none
+      body:
+        type: json
+        data: |-
+          {
+            "d": {
+              "results": [
+                {
+                  "__metadata": {
+                    "id": "https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='ANMIPABI040H7TA1GG',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')",
+                    "uri": "https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='ANMIPABI040H7TA1GG',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')",
+                    "type": "API_MATERIAL_STOCK_SRV.A_MatlStkInAcctModType"
+                  },
+                  "Material": "ANMIPABI040H7TA1GG",
+                  "Plant": "PF10",
+                  "StorageLocation": "M003",
+                  "Batch": "",
+                  "Supplier": "",
+                  "Customer": "",
+                  "WBSElementInternalID": "0",
+                  "SDDocument": "",
+                  "SDDocumentItem": "0",
+                  "InventorySpecialStockType": "",
+                  "InventoryStockType": "01",
+                  "WBSElementExternalID": "",
+                  "MaterialBaseUnit": "PC",
+                  "MatlWrhsStkQtyInMatlBaseUnit": "4000",
+                  "to_MaterialSerialNumber": {
+                    "__deferred": {
+                      "uri": "https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='ANMIPABI040H7TA1GG',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')/to_MaterialSerialNumber"
+                    }
+                  },
+                  "to_MaterialStock": {
+                    "__deferred": {
+                      "uri": "https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='ANMIPABI040H7TA1GG',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')/to_MaterialStock"
+                    }
+                  }
+                },
+                {
+                  "__metadata": {
+                    "id": "https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='CHFUPPGI090H1TA1',Plant='PF10',StorageLocation='M003',Batch='0000000203',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')",
+                    "uri": "https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='CHFUPPGI090H1TA1',Plant='PF10',StorageLocation='M003',Batch='0000000203',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')",
+                    "type": "API_MATERIAL_STOCK_SRV.A_MatlStkInAcctModType"
+                  },
+                  "Material": "CHFUPPGI090H1TA1",
+                  "Plant": "PF10",
+                  "StorageLocation": "M003",
+                  "Batch": "0000000203",
+                  "Supplier": "",
+                  "Customer": "",
+                  "WBSElementInternalID": "0",
+                  "SDDocument": "",
+                  "SDDocumentItem": "0",
+                  "InventorySpecialStockType": "",
+                  "InventoryStockType": "01",
+                  "WBSElementExternalID": "",
+                  "MaterialBaseUnit": "PC",
+                  "MatlWrhsStkQtyInMatlBaseUnit": "4000",
+                  "to_MaterialSerialNumber": {
+                    "__deferred": {
+                      "uri": "https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='CHFUPPGI090H1TA1',Plant='PF10',StorageLocation='M003',Batch='0000000203',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')/to_MaterialSerialNumber"
+                    }
+                  },
+                  "to_MaterialStock": {
+                    "__deferred": {
+                      "uri": "https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='CHFUPPGI090H1TA1',Plant='PF10',StorageLocation='M003',Batch='0000000203',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')/to_MaterialStock"
+                    }
+                  }
+                },
+                {
+                  "__metadata": {
+                    "id": "https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='CHSPCHRS070G7CA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')",
+                    "uri": "https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='CHSPCHRS070G7CA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')",
+                    "type": "API_MATERIAL_STOCK_SRV.A_MatlStkInAcctModType"
+                  },
+                  "Material": "CHSPCHRS070G7CA1",
+                  "Plant": "PF10",
+                  "StorageLocation": "M003",
+                  "Batch": "",
+                  "Supplier": "",
+                  "Customer": "",
+                  "WBSElementInternalID": "0",
+                  "SDDocument": "",
+                  "SDDocumentItem": "0",
+                  "InventorySpecialStockType": "",
+                  "InventoryStockType": "01",
+                  "WBSElementExternalID": "",
+                  "MaterialBaseUnit": "ST",
+                  "MatlWrhsStkQtyInMatlBaseUnit": "4000",
+                  "to_MaterialSerialNumber": {
+                    "__deferred": {
+                      "uri": "https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='CHSPCHRS070G7CA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')/to_MaterialSerialNumber"
+                    }
+                  },
+                  "to_MaterialStock": {
+                    "__deferred": {
+                      "uri": "https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='CHSPCHRS070G7CA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')/to_MaterialStock"
+                    }
+                  }
+                },
+                {
+                  "__metadata": {
+                    "id": "https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='CHSPFIRO070G7CA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')",
+                    "uri": "https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='CHSPFIRO070G7CA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')",
+                    "type": "API_MATERIAL_STOCK_SRV.A_MatlStkInAcctModType"
+                  },
+                  "Material": "CHSPFIRO070G7CA1",
+                  "Plant": "PF10",
+                  "StorageLocation": "M003",
+                  "Batch": "",
+                  "Supplier": "",
+                  "Customer": "",
+                  "WBSElementInternalID": "0",
+                  "SDDocument": "",
+                  "SDDocumentItem": "0",
+                  "InventorySpecialStockType": "",
+                  "InventoryStockType": "01",
+                  "WBSElementExternalID": "",
+                  "MaterialBaseUnit": "ST",
+                  "MatlWrhsStkQtyInMatlBaseUnit": "4000",
+                  "to_MaterialSerialNumber": {
+                    "__deferred": {
+                      "uri": "https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='CHSPFIRO070G7CA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')/to_MaterialSerialNumber"
+                    }
+                  },
+                  "to_MaterialStock": {
+                    "__deferred": {
+                      "uri": "https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='CHSPFIRO070G7CA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')/to_MaterialStock"
+                    }
+                  }
+                },
+                {
+                  "__metadata": {
+                    "id": "https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='DISTARMX065SA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')",
+                    "uri": "https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='DISTARMX065SA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')",
+                    "type": "API_MATERIAL_STOCK_SRV.A_MatlStkInAcctModType"
+                  },
+                  "Material": "DISTARMX065SA1",
+                  "Plant": "PF10",
+                  "StorageLocation": "M003",
+                  "Batch": "",
+                  "Supplier": "",
+                  "Customer": "",
+                  "WBSElementInternalID": "0",
+                  "SDDocument": "",
+                  "SDDocumentItem": "0",
+                  "InventorySpecialStockType": "",
+                  "InventoryStockType": "01",
+                  "WBSElementExternalID": "",
+                  "MaterialBaseUnit": "PC",
+                  "MatlWrhsStkQtyInMatlBaseUnit": "4000",
+                  "to_MaterialSerialNumber": {
+                    "__deferred": {
+                      "uri": "https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='DISTARMX065SA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')/to_MaterialSerialNumber"
+                    }
+                  },
+                  "to_MaterialStock": {
+                    "__deferred": {
+                      "uri": "https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='DISTARMX065SA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')/to_MaterialStock"
+                    }
+                  }
+                },
+                {
+                  "__metadata": {
+                    "id": "https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='DISTDIRS065SA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')",
+                    "uri": "https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='DISTDIRS065SA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')",
+                    "type": "API_MATERIAL_STOCK_SRV.A_MatlStkInAcctModType"
+                  },
+                  "Material": "DISTDIRS065SA1",
+                  "Plant": "PF10",
+                  "StorageLocation": "M003",
+                  "Batch": "",
+                  "Supplier": "",
+                  "Customer": "",
+                  "WBSElementInternalID": "0",
+                  "SDDocument": "",
+                  "SDDocumentItem": "0",
+                  "InventorySpecialStockType": "",
+                  "InventoryStockType": "01",
+                  "WBSElementExternalID": "",
+                  "MaterialBaseUnit": "PC",
+                  "MatlWrhsStkQtyInMatlBaseUnit": "4000",
+                  "to_MaterialSerialNumber": {
+                    "__deferred": {
+                      "uri": "https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='DISTDIRS065SA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')/to_MaterialSerialNumber"
+                    }
+                  },
+                  "to_MaterialStock": {
+                    "__deferred": {
+                      "uri": "https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='DISTDIRS065SA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')/to_MaterialStock"
+                    }
+                  }
+                },
+                {
+                  "__metadata": {
+                    "id": "https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='RAASSPAR0405TA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')",
+                    "uri": "https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='RAASSPAR0405TA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')",
+                    "type": "API_MATERIAL_STOCK_SRV.A_MatlStkInAcctModType"
+                  },
+                  "Material": "RAASSPAR0405TA1",
+                  "Plant": "PF10",
+                  "StorageLocation": "M003",
+                  "Batch": "",
+                  "Supplier": "",
+                  "Customer": "",
+                  "WBSElementInternalID": "0",
+                  "SDDocument": "",
+                  "SDDocumentItem": "0",
+                  "InventorySpecialStockType": "",
+                  "InventoryStockType": "01",
+                  "WBSElementExternalID": "",
+                  "MaterialBaseUnit": "PC",
+                  "MatlWrhsStkQtyInMatlBaseUnit": "4000",
+                  "to_MaterialSerialNumber": {
+                    "__deferred": {
+                      "uri": "https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='RAASSPAR0405TA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')/to_MaterialSerialNumber"
+                    }
+                  },
+                  "to_MaterialStock": {
+                    "__deferred": {
+                      "uri": "https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='RAASSPAR0405TA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')/to_MaterialStock"
+                    }
+                  }
+                },
+                {
+                  "__metadata": {
+                    "id": "https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='RUHYGA060SA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')",
+                    "uri": "https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='RUHYGA060SA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')",
+                    "type": "API_MATERIAL_STOCK_SRV.A_MatlStkInAcctModType"
+                  },
+                  "Material": "RUHYGA060SA1",
+                  "Plant": "PF10",
+                  "StorageLocation": "M003",
+                  "Batch": "",
+                  "Supplier": "",
+                  "Customer": "",
+                  "WBSElementInternalID": "0",
+                  "SDDocument": "",
+                  "SDDocumentItem": "0",
+                  "InventorySpecialStockType": "",
+                  "InventoryStockType": "01",
+                  "WBSElementExternalID": "",
+                  "MaterialBaseUnit": "PC",
+                  "MatlWrhsStkQtyInMatlBaseUnit": "4000",
+                  "to_MaterialSerialNumber": {
+                    "__deferred": {
+                      "uri": "https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='RUHYGA060SA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')/to_MaterialSerialNumber"
+                    }
+                  },
+                  "to_MaterialStock": {
+                    "__deferred": {
+                      "uri": "https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='RUHYGA060SA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')/to_MaterialStock"
+                    }
+                  }
+                }
+              ]
+            }
+          }

@@ -1,0 +1,108 @@
+info:
+  name: Credit Management
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: https://my427213-api.s4hana.cloud.sap/sap/bc/srt/scs_ext/sap/creditmanagementaccountbyidqu1
+  headers:
+    - name: SOAPActionSOAPAction
+      value: http://sap.com/xi/FSCM/Global/CreditManagementAccountByIDQuery_In/CreditManagementAccountByIDQuery_InRequest
+    - name: Content-Type
+      value: text/xml; charset=utf-8
+  body:
+    type: xml
+    data: |-
+      <soap-env:Envelope xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/">
+        <soap-env:Header/>
+        <soap-env:Body>
+          <n0:CreditManagementAccountByIDQuery
+              xmlns:n0="http://sap.com/xi/SAPGlobal/Global">
+            <MessageHeader>
+              <ID>UNIQUE_MESSAGE_ID_001</ID>
+              <CreationDateTime>2026-05-06T10:00:00.000Z</CreationDateTime>
+            </MessageHeader>
+            <Selection>
+              <DebtorPartyInternalID
+                  schemeID="PartyID"
+                  schemeAgencyID="0M728HH">0001000007</DebtorPartyInternalID>
+              <CreditsegmentInternalID>IT10</CreditsegmentInternalID>
+            </Selection>
+            <LanguageCode>it</LanguageCode>
+          </n0:CreditManagementAccountByIDQuery>
+        </soap-env:Body>
+      </soap-env:Envelope>
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: https://my427213-api.s4hana.cloud.sap/sap/bc/srt/scs_ext/sap/creditmanagementaccountbyidqu1
+      method: POST
+      headers:
+        - name: SOAPActionSOAPAction
+          value: http://sap.com/xi/FSCM/Global/CreditManagementAccountByIDQuery_In/CreditManagementAccountByIDQuery_InRequest
+        - name: Content-Type
+          value: text/xml; charset=utf-8
+      body:
+        type: xml
+        data: |-
+          <soap-env:Envelope xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap-env:Header/>
+            <soap-env:Body>
+              <n0:CreditManagementAccountByIDQuery
+                  xmlns:n0="http://sap.com/xi/SAPGlobal/Global">
+                <MessageHeader>
+                  <ID>UNIQUE_MESSAGE_ID_001</ID>
+                  <CreationDateTime>2026-05-06T10:00:00.000Z</CreationDateTime>
+                </MessageHeader>
+                <Selection>
+                  <DebtorPartyInternalID
+                      schemeID="PartyID"
+                      schemeAgencyID="0M728HH">0001000007</DebtorPartyInternalID>
+                  <CreditsegmentInternalID>IT10</CreditsegmentInternalID>
+                </Selection>
+                <LanguageCode>it</LanguageCode>
+              </n0:CreditManagementAccountByIDQuery>
+            </soap-env:Body>
+          </soap-env:Envelope>
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: content-type
+          value: text/xml; charset=utf-8
+        - name: content-length
+          value: "762"
+        - name: sap-authenticated
+          value: "true"
+        - name: accept
+          value: text/xml
+        - name: sap-srt_id
+          value: 20260617/130521/v1.00_final_6.40/FA163EF8D1E51FE19AC9A66C08A32287
+        - name: sap-srt_server_info
+          value: ASM_100,2112 ,http://sap.com/xi/FSCM/Global,CreditManagementAccountByIDQuery_In,CreditManagementAccountByIDQuery,1706
+        - name: sap-srt_server_info_ext
+          value: "0"
+        - name: sap-server
+          value: "true"
+        - name: sap-perf-fesrec
+          value: "2145462.000000"
+        - name: x-content-type-options
+          value: nosniff
+        - name: strict-transport-security
+          value: max-age=31536000; includeSubDomains
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: sap-passport-component
+          value: none
+      body:
+        type: xml
+        data: <soap-env:Envelope xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/"><soap-env:Header/><soap-env:Body><n0:CreditManagementAccountByIDResponse xmlns:n0="http://sap.com/xi/SAPGlobal/Global" xmlns:prx="urn:sap.com:proxy:ASM:/1SAI/TASEDBF25B08B78C0A2E9D9:918"><MessageHeader><ID>FA163EF8D1E51FE19AC9A66C08A30287</ID><CreationDateTime>2026-06-17T13:05:23.216Z</CreationDateTime></MessageHeader><CreditManagementAccount><DebtorPartyInternalID schemeID="PartyID" schemeAgencyID="0M728HH">0001000007</DebtorPartyInternalID><CreditsegmentInternalID>IT10</CreditsegmentInternalID><CreditSegmentDescription languageCode="it">Segmento di credito Flora Toscana</CreditSegmentDescription><CreditWorthinessCheckingRuleCode>ST</CreditWorthinessCheckingRuleCode><CreditWorthinessCheckingSchemeCode>01</CreditWorthinessCheckingSchemeCode><SpecialAttentionRequiredIndicator>false</SpecialAttentionRequiredIndicator><BlockedIndicator>false</BlockedIndicator><BlockingReasonCodeDescription languageCode="it"/><CreditLimitAmount currencyCode="EUR">500.0</CreditLimitAmount><CreditLimitValidityPeriod><StartDate>2026-06-17</StartDate></CreditLimitValidityPeriod><CreditExposure><Amount currencyCode="EUR">453.23</Amount><Percent>90.6</Percent></CreditExposure><CreditRating><Code>        0</Code></CreditRating><CreditRiskClass><Code>C</Code><ValidityPeriod><StartDate>2025-10-10</StartDate></ValidityPeriod><Description languageCode="it">Rischio di insolvenza medio</Description></CreditRiskClass><PaymentBehaviourSummary><DaysOfSalesOutstandingAverageDuration>0 </DaysOfSalesOutstandingAverageDuration></PaymentBehaviourSummary><CommitmentTotal><CreditCommitmentTypeCode>100</CreditCommitmentTypeCode><CreditCommitmentTotalAmount currencyCode="EUR">125.66</CreditCommitmentTotalAmount><RelatedAccountsCommitmentTotalAmount currencyCode="EUR">125.66</RelatedAccountsCommitmentTotalAmount></CommitmentTotal><CommitmentTotal><CreditCommitmentTypeCode>400</CreditCommitmentTypeCode><CreditCommitmentTotalAmount currencyCode="EUR">327.57</CreditCommitmentTotalAmount><RelatedAccountsCommitmentTotalAmount currencyCode="EUR">327.57</RelatedAccountsCommitmentTotalAmount></CommitmentTotal></CreditManagementAccount></n0:CreditManagementAccountByIDResponse></soap-env:Body></soap-env:Envelope>

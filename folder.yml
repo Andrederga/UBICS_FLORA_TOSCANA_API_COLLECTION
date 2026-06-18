@@ -1,0 +1,10 @@
+info:
+  name: UBICS
+  type: folder
+  seq: 1
+
+request:
+  auth:
+    type: basic
+    username: UBICS_FLORA_TOSCANA
+    password: "{{api_pw}}"
