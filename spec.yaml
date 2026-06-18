@@ -1,0 +1,3145 @@
+openapi: 3.0.3
+info:
+  title: UBICS – SAP S/4HANA Cloud API
+  version: 1.1.0
+  description: |
+    Documentazione OpenAPI ricostruita dalla collezione "UBICS" (Flora Toscana). Espone servizi SAP S/4HANA Cloud OData V2, OData V4 e un servizio SOAP per il Credit Management. Schemi ed esempi di risposta sono basati sulle chiamate reali registrate nella collezione.
+
+    ## Autenticazione
+    Tutti gli endpoint usano **HTTP Basic Authentication** (utente `UBICS_FLORA_TOSCANA`). La password va fornita a runtime tramite variabile (`{{api_pw}}` nella collezione) e non deve essere committata.
+
+    ## Token CSRF (X-CSRF-Token)
+    Le POST sui servizi OData richiedono un token anti-CSRF. Flusso: eseguire una `GET` al service root con header `X-CSRF-Token: Fetch`, leggere il token dall'header di risposta e riusarlo (con il cookie di sessione) nelle POST successive. I valori negli esempi sono segnaposto di sessione.
+
+    ## Convenzioni di risposta
+    - **OData V2** (Stock, Attachments): envelope `{ "d": { "results": [...] } }`,
+      ogni record include `__metadata` e navigazioni `__deferred`.
+
+    - **OData V4** (Product, Genere botanico, Class characteristics, Sales/Purchase
+      Order): envelope `{ "@odata.context", "value": [...] }` per le collezioni o
+      l'entità creata direttamente per le POST. Le date SAP V2 sono serializzate
+      come `/Date(epoch_ms)/`.
+  contact:
+    name: UBICS / Flora Toscana
+servers:
+- url: https://my427213-api.s4hana.cloud.sap
+  description: SAP S/4HANA Cloud (tenant my427213)
+security:
+- basicAuth: []
+tags:
+- name: Inventory
+  description: Giacenze e disponibilità di magazzino
+- name: Master Data
+  description: Anagrafiche prodotto, generi botanici e classificazioni
+- name: Sales
+  description: Ordini di vendita
+- name: Procurement
+  description: Ordini di acquisto
+- name: Credit Management
+  description: Servizio SOAP per la verifica del credito cliente
+- name: Attachments
+  description: Allegati documentali (DMS / GOS)
+paths:
+  /sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod:
+    get:
+      tags:
+      - Inventory
+      summary: Elenco giacenze materiale (Stock)
+      operationId: getMaterialStock
+      description: Giacenze di materiale per ubicazione (OData V2).
+      parameters:
+      - $ref: '#/components/parameters/Top'
+      - $ref: '#/components/parameters/Orderby'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Skip'
+      - $ref: '#/components/parameters/Select'
+      responses:
+        '200':
+          description: Elenco giacenze
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MaterialStockListV2'
+              example:
+                d:
+                  results:
+                  - __metadata:
+                      id: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='ANMIPABI040H7TA1GG',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')
+                      uri: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='ANMIPABI040H7TA1GG',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')
+                      type: API_MATERIAL_STOCK_SRV.A_MatlStkInAcctModType
+                    Material: ANMIPABI040H7TA1GG
+                    Plant: PF10
+                    StorageLocation: M003
+                    Batch: ''
+                    Supplier: ''
+                    Customer: ''
+                    WBSElementInternalID: '0'
+                    SDDocument: ''
+                    SDDocumentItem: '0'
+                    InventorySpecialStockType: ''
+                    InventoryStockType: '01'
+                    WBSElementExternalID: ''
+                    MaterialBaseUnit: PC
+                    MatlWrhsStkQtyInMatlBaseUnit: '4000'
+                    to_MaterialSerialNumber:
+                      __deferred:
+                        uri: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='ANMIPABI040H7TA1GG',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')/to_MaterialSerialNumber
+                    to_MaterialStock:
+                      __deferred:
+                        uri: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='ANMIPABI040H7TA1GG',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')/to_MaterialStock
+                  - __metadata:
+                      id: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='CHFUPPGI090H1TA1',Plant='PF10',StorageLocation='M003',Batch='0000000203',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')
+                      uri: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='CHFUPPGI090H1TA1',Plant='PF10',StorageLocation='M003',Batch='0000000203',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')
+                      type: API_MATERIAL_STOCK_SRV.A_MatlStkInAcctModType
+                    Material: CHFUPPGI090H1TA1
+                    Plant: PF10
+                    StorageLocation: M003
+                    Batch: '0000000203'
+                    Supplier: ''
+                    Customer: ''
+                    WBSElementInternalID: '0'
+                    SDDocument: ''
+                    SDDocumentItem: '0'
+                    InventorySpecialStockType: ''
+                    InventoryStockType: '01'
+                    WBSElementExternalID: ''
+                    MaterialBaseUnit: PC
+                    MatlWrhsStkQtyInMatlBaseUnit: '4000'
+                    to_MaterialSerialNumber:
+                      __deferred:
+                        uri: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='CHFUPPGI090H1TA1',Plant='PF10',StorageLocation='M003',Batch='0000000203',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')/to_MaterialSerialNumber
+                    to_MaterialStock:
+                      __deferred:
+                        uri: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='CHFUPPGI090H1TA1',Plant='PF10',StorageLocation='M003',Batch='0000000203',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')/to_MaterialStock
+                  - __metadata:
+                      id: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='CHSPCHRS070G7CA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')
+                      uri: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='CHSPCHRS070G7CA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')
+                      type: API_MATERIAL_STOCK_SRV.A_MatlStkInAcctModType
+                    Material: CHSPCHRS070G7CA1
+                    Plant: PF10
+                    StorageLocation: M003
+                    Batch: ''
+                    Supplier: ''
+                    Customer: ''
+                    WBSElementInternalID: '0'
+                    SDDocument: ''
+                    SDDocumentItem: '0'
+                    InventorySpecialStockType: ''
+                    InventoryStockType: '01'
+                    WBSElementExternalID: ''
+                    MaterialBaseUnit: ST
+                    MatlWrhsStkQtyInMatlBaseUnit: '4000'
+                    to_MaterialSerialNumber:
+                      __deferred:
+                        uri: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='CHSPCHRS070G7CA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')/to_MaterialSerialNumber
+                    to_MaterialStock:
+                      __deferred:
+                        uri: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='CHSPCHRS070G7CA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')/to_MaterialStock
+                  - __metadata:
+                      id: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='CHSPFIRO070G7CA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')
+                      uri: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='CHSPFIRO070G7CA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')
+                      type: API_MATERIAL_STOCK_SRV.A_MatlStkInAcctModType
+                    Material: CHSPFIRO070G7CA1
+                    Plant: PF10
+                    StorageLocation: M003
+                    Batch: ''
+                    Supplier: ''
+                    Customer: ''
+                    WBSElementInternalID: '0'
+                    SDDocument: ''
+                    SDDocumentItem: '0'
+                    InventorySpecialStockType: ''
+                    InventoryStockType: '01'
+                    WBSElementExternalID: ''
+                    MaterialBaseUnit: ST
+                    MatlWrhsStkQtyInMatlBaseUnit: '4000'
+                    to_MaterialSerialNumber:
+                      __deferred:
+                        uri: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='CHSPFIRO070G7CA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')/to_MaterialSerialNumber
+                    to_MaterialStock:
+                      __deferred:
+                        uri: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='CHSPFIRO070G7CA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')/to_MaterialStock
+                  - __metadata:
+                      id: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='DISTARMX065SA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')
+                      uri: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='DISTARMX065SA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')
+                      type: API_MATERIAL_STOCK_SRV.A_MatlStkInAcctModType
+                    Material: DISTARMX065SA1
+                    Plant: PF10
+                    StorageLocation: M003
+                    Batch: ''
+                    Supplier: ''
+                    Customer: ''
+                    WBSElementInternalID: '0'
+                    SDDocument: ''
+                    SDDocumentItem: '0'
+                    InventorySpecialStockType: ''
+                    InventoryStockType: '01'
+                    WBSElementExternalID: ''
+                    MaterialBaseUnit: PC
+                    MatlWrhsStkQtyInMatlBaseUnit: '4000'
+                    to_MaterialSerialNumber:
+                      __deferred:
+                        uri: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='DISTARMX065SA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')/to_MaterialSerialNumber
+                    to_MaterialStock:
+                      __deferred:
+                        uri: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='DISTARMX065SA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')/to_MaterialStock
+                  - __metadata:
+                      id: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='DISTDIRS065SA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')
+                      uri: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='DISTDIRS065SA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')
+                      type: API_MATERIAL_STOCK_SRV.A_MatlStkInAcctModType
+                    Material: DISTDIRS065SA1
+                    Plant: PF10
+                    StorageLocation: M003
+                    Batch: ''
+                    Supplier: ''
+                    Customer: ''
+                    WBSElementInternalID: '0'
+                    SDDocument: ''
+                    SDDocumentItem: '0'
+                    InventorySpecialStockType: ''
+                    InventoryStockType: '01'
+                    WBSElementExternalID: ''
+                    MaterialBaseUnit: PC
+                    MatlWrhsStkQtyInMatlBaseUnit: '4000'
+                    to_MaterialSerialNumber:
+                      __deferred:
+                        uri: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='DISTDIRS065SA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')/to_MaterialSerialNumber
+                    to_MaterialStock:
+                      __deferred:
+                        uri: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='DISTDIRS065SA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')/to_MaterialStock
+                  - __metadata:
+                      id: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='RAASSPAR0405TA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')
+                      uri: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='RAASSPAR0405TA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')
+                      type: API_MATERIAL_STOCK_SRV.A_MatlStkInAcctModType
+                    Material: RAASSPAR0405TA1
+                    Plant: PF10
+                    StorageLocation: M003
+                    Batch: ''
+                    Supplier: ''
+                    Customer: ''
+                    WBSElementInternalID: '0'
+                    SDDocument: ''
+                    SDDocumentItem: '0'
+                    InventorySpecialStockType: ''
+                    InventoryStockType: '01'
+                    WBSElementExternalID: ''
+                    MaterialBaseUnit: PC
+                    MatlWrhsStkQtyInMatlBaseUnit: '4000'
+                    to_MaterialSerialNumber:
+                      __deferred:
+                        uri: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='RAASSPAR0405TA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')/to_MaterialSerialNumber
+                    to_MaterialStock:
+                      __deferred:
+                        uri: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='RAASSPAR0405TA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')/to_MaterialStock
+                  - __metadata:
+                      id: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='RUHYGA060SA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')
+                      uri: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='RUHYGA060SA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')
+                      type: API_MATERIAL_STOCK_SRV.A_MatlStkInAcctModType
+                    Material: RUHYGA060SA1
+                    Plant: PF10
+                    StorageLocation: M003
+                    Batch: ''
+                    Supplier: ''
+                    Customer: ''
+                    WBSElementInternalID: '0'
+                    SDDocument: ''
+                    SDDocumentItem: '0'
+                    InventorySpecialStockType: ''
+                    InventoryStockType: '01'
+                    WBSElementExternalID: ''
+                    MaterialBaseUnit: PC
+                    MatlWrhsStkQtyInMatlBaseUnit: '4000'
+                    to_MaterialSerialNumber:
+                      __deferred:
+                        uri: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='RUHYGA060SA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')/to_MaterialSerialNumber
+                    to_MaterialStock:
+                      __deferred:
+                        uri: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_MATERIAL_STOCK_SRV/A_MatlStkInAcctMod(Material='RUHYGA060SA1',Plant='PF10',StorageLocation='M003',Batch='',Supplier='',Customer='',WBSElementInternalID='0',SDDocument='',SDDocumentItem='0',InventorySpecialStockType='',InventoryStockType='01')/to_MaterialStock
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /sap/opu/odata4/sap/api_product/srvd_a2x/sap/product/0003/Product:
+    get:
+      tags:
+      - Master Data
+      summary: Elenco prodotti (Product)
+      operationId: getProducts
+      description: Anagrafica prodotti (OData V4). La risposta contiene molti campi; lo schema riporta i principali.
+      parameters:
+      - $ref: '#/components/parameters/Top'
+      - $ref: '#/components/parameters/Skip'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Orderby'
+      - $ref: '#/components/parameters/Select'
+      - $ref: '#/components/parameters/Expand'
+      - $ref: '#/components/parameters/Count'
+      responses:
+        '200':
+          description: Elenco prodotti
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductListV4'
+              example:
+                '@odata.context': $metadata#Product
+                '@odata.metadataEtag': W/"20260617130653"
+                value:
+                - '@odata.etag': W/"SADL-202604020808130000000C~20260402080813.0000000"
+                  Product: '4'
+                  ProductType: FERT
+                  CreationDate: '2025-10-10'
+                  CreationTime: 09:57:37
+                  CreationDateTime: '2025-10-10T09:57:37Z'
+                  CreatedByUser: CB9980000042
+                  LastChangeDate: '2026-04-02'
+                  LastChangedByUser: CB9980000080
+                  IsMarkedForDeletion: false
+                  CrossPlantStatus: ''
+                  CrossPlantStatusValidityDate: null
+                  ProductOldID: ''
+                  GrossWeight: 0
+                  WeightUnit: KG
+                  WeightISOUnit: KGM
+                  ProductGroup: L004
+                  BaseUnit: ST
+                  BaseISOUnit: PCE
+                  ItemCategoryGroup: ''
+                  NetWeight: 0
+                  Division: ''
+                  VolumeUnit: ''
+                  VolumeISOUnit: ''
+                  ProductVolume: 0
+                  AuthorizationGroup: ''
+                  ANPCode: '0'
+                  SizeOrDimensionText: ''
+                  IndustryStandardName: ''
+                  ProductStandardID: ''
+                  InternationalArticleNumberCat: ''
+                  ProductIsConfigurable: false
+                  IsBatchManagementRequired: false
+                  ExternalProductGroup: ''
+                  CrossPlantConfigurableProduct: ''
+                  SerialNoExplicitnessLevel: ''
+                  IsApprovedBatchRecordReqd: false
+                  HandlingIndicator: ''
+                  WarehouseProductGroup: ''
+                  WarehouseStorageCondition: ''
+                  StandardHandlingUnitType: ''
+                  SerialNumberProfile: ''
+                  IsPilferable: false
+                  IsRelevantForHzdsSubstances: false
+                  QuarantinePeriod: 0
+                  TimeUnitForQuarantinePeriod: ''
+                  QuarantinePeriodISOUnit: ''
+                  QualityInspectionGroup: ''
+                  HandlingUnitType: ''
+                  HasVariableTareWeight: false
+                  MaximumPackagingLength: 0
+                  MaximumPackagingWidth: 0
+                  MaximumPackagingHeight: 0
+                  MaximumCapacity: 0
+                  OvercapacityTolerance: 0
+                  UnitForMaxPackagingDimensions: ''
+                  MaxPackggDimensionISOUnit: ''
+                  BaseUnitSpecificProductLength: 0
+                  BaseUnitSpecificProductWidth: 0
+                  BaseUnitSpecificProductHeight: 0
+                  ProductMeasurementUnit: ''
+                  ProductMeasurementISOUnit: ''
+                  ArticleCategory: ''
+                  IndustrySector: M
+                  LastChangeDateTime: '2026-04-02T08:08:13Z'
+                  LastChangeTime: 08:08:13
+                  DangerousGoodsIndProfile: ''
+                  ProductDocumentChangeNumber: ''
+                  ProductDocumentPageCount: '0'
+                  ProductDocumentPageNumber: ''
+                  DocumentIsCreatedByCAD: false
+                  ProductionOrInspectionMemoTxt: ''
+                  ProductionMemoPageFormat: ''
+                  ProductIsHighlyViscous: false
+                  TransportIsInBulk: false
+                  ProdEffctyParamValsAreAssigned: false
+                  ProdIsEnvironmentallyRelevant: false
+                  LaboratoryOrDesignOffice: ''
+                  PackagingProductGroup: ''
+                  PackingReferenceProduct: ''
+                  BasicProduct: ''
+                  ProductDocumentNumber: ''
+                  ProductDocumentVersion: ''
+                  ProductDocumentType: ''
+                  ProductDocumentPageFormat: ''
+                  ProdChmlCmplncRelevanceCode: ''
+                  DiscountInKindEligibility: ''
+                  ProductManufacturerNumber: ''
+                  ManufacturerNumber: ''
+                  ManufacturerPartProfile: ''
+                  OwnInventoryManagedProduct: ''
+                  ProductConfiguration: '0'
+                  YY1_QuantitLimitata2_PRD: false
+                  YY1_IndicazionediPeric_PRD: ''
+                  YY1_UsoPrevisto_PRD: ''
+                  YY1_Concentrazione_PRD: 0
+                  YY1_NumeroONU2_PRD: ''
+                  YY1_GenereBotanico_PRD: ''
+                  SAP__Messages: []
+                - '@odata.etag': W/"SADL-202512150908400000000C~20251215090840.0000000"
+                  Product: '5'
+                  ProductType: FERT
+                  CreationDate: '2025-10-16'
+                  CreationTime: '13:51:51'
+                  CreationDateTime: '2025-10-16T13:51:51Z'
+                  CreatedByUser: CB9980000042
+                  LastChangeDate: '2025-12-15'
+                  LastChangedByUser: CB9980000080
+                  IsMarkedForDeletion: false
+                  CrossPlantStatus: ''
+                  CrossPlantStatusValidityDate: null
+                  ProductOldID: TEST
+                  GrossWeight: 0
+                  WeightUnit: KG
+                  WeightISOUnit: KGM
+                  ProductGroup: Z201
+                  BaseUnit: ST
+                  BaseISOUnit: PCE
+                  ItemCategoryGroup: ''
+                  NetWeight: 0
+                  Division: ''
+                  VolumeUnit: ''
+                  VolumeISOUnit: ''
+                  ProductVolume: 0
+                  AuthorizationGroup: ''
+                  ANPCode: '0'
+                  SizeOrDimensionText: ''
+                  IndustryStandardName: ''
+                  ProductStandardID: ''
+                  InternationalArticleNumberCat: ''
+                  ProductIsConfigurable: false
+                  IsBatchManagementRequired: false
+                  ExternalProductGroup: ''
+                  CrossPlantConfigurableProduct: ''
+                  SerialNoExplicitnessLevel: ''
+                  IsApprovedBatchRecordReqd: false
+                  HandlingIndicator: ''
+                  WarehouseProductGroup: ''
+                  WarehouseStorageCondition: ''
+                  StandardHandlingUnitType: ''
+                  SerialNumberProfile: ''
+                  IsPilferable: false
+                  IsRelevantForHzdsSubstances: false
+                  QuarantinePeriod: 0
+                  TimeUnitForQuarantinePeriod: ''
+                  QuarantinePeriodISOUnit: ''
+                  QualityInspectionGroup: ''
+                  HandlingUnitType: ''
+                  HasVariableTareWeight: false
+                  MaximumPackagingLength: 0
+                  MaximumPackagingWidth: 0
+                  MaximumPackagingHeight: 0
+                  MaximumCapacity: 0
+                  OvercapacityTolerance: 0
+                  UnitForMaxPackagingDimensions: ''
+                  MaxPackggDimensionISOUnit: ''
+                  BaseUnitSpecificProductLength: 0
+                  BaseUnitSpecificProductWidth: 0
+                  BaseUnitSpecificProductHeight: 0
+                  ProductMeasurementUnit: ''
+                  ProductMeasurementISOUnit: ''
+                  ArticleCategory: ''
+                  IndustrySector: M
+                  LastChangeDateTime: '2025-12-15T09:08:40Z'
+                  LastChangeTime: 09:08:40
+                  DangerousGoodsIndProfile: ''
+                  ProductDocumentChangeNumber: ''
+                  ProductDocumentPageCount: '0'
+                  ProductDocumentPageNumber: ''
+                  DocumentIsCreatedByCAD: false
+                  ProductionOrInspectionMemoTxt: ''
+                  ProductionMemoPageFormat: ''
+                  ProductIsHighlyViscous: false
+                  TransportIsInBulk: false
+                  ProdEffctyParamValsAreAssigned: false
+                  ProdIsEnvironmentallyRelevant: false
+                  LaboratoryOrDesignOffice: ''
+                  PackagingProductGroup: ''
+                  PackingReferenceProduct: ''
+                  BasicProduct: ''
+                  ProductDocumentNumber: ''
+                  ProductDocumentVersion: ''
+                  ProductDocumentType: ''
+                  ProductDocumentPageFormat: ''
+                  ProdChmlCmplncRelevanceCode: ''
+                  DiscountInKindEligibility: ''
+                  ProductManufacturerNumber: ''
+                  ManufacturerNumber: ''
+                  ManufacturerPartProfile: ''
+                  OwnInventoryManagedProduct: ''
+                  ProductConfiguration: '0'
+                  YY1_QuantitLimitata2_PRD: false
+                  YY1_IndicazionediPeric_PRD: ''
+                  YY1_UsoPrevisto_PRD: ''
+                  YY1_Concentrazione_PRD: 0
+                  YY1_NumeroONU2_PRD: ''
+                  YY1_GenereBotanico_PRD: ''
+                  SAP__Messages: []
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /sap/opu/odata4/sap/za_generebotanico/srvd_a2x/sap/za_generebotanico/0001/GenereBotanico:
+    get:
+      tags:
+      - Master Data
+      summary: Elenco generi botanici (Genere botanico)
+      operationId: getGenereBotanico
+      description: Servizio custom (Z) dei generi botanici; supporta `$expand=_Texts` per i testi multilingua.
+      parameters:
+      - $ref: '#/components/parameters/Top'
+      - $ref: '#/components/parameters/Skip'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Expand'
+      - $ref: '#/components/parameters/Select'
+      responses:
+        '200':
+          description: Elenco generi botanici
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenereBotanicoListV4'
+              example:
+                '@odata.context': $metadata#GenereBotanico(_Texts())
+                '@odata.metadataEtag': W/"20260615132825"
+                value:
+                - GenereBotanico: '1'
+                  LastChanged: '2026-05-07T12:30:33.576561Z'
+                  _Texts:
+                  - GenereBotanico: '1'
+                    Language: IT
+                    Descrizione: ACACIA
+                  - GenereBotanico: '1'
+                    Language: EN
+                    Descrizione: test
+                - GenereBotanico: '10'
+                  LastChanged: '2026-05-05T12:11:13.184135Z'
+                  _Texts:
+                  - GenereBotanico: '10'
+                    Language: IT
+                    Descrizione: ALSTROEMERIA
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  ? /sap/opu/odata4/sap/za_productandbatchclass/srvd_a2x/sap/za_productandbatchclass/0001/ProductAndBatchClassification(ValidityDate={ValidityDate})/Set
+  : get:
+      tags:
+      - Master Data
+      summary: Caratteristiche di classificazione prodotto/partita (Class characteristics)
+      operationId: getProductAndBatchClassification
+      description: |
+        Servizio custom (Z) che restituisce le caratteristiche di classificazione per prodotto e partita a una data di validità. `ClassType` "001" indica la classificazione materiale, "023" la classificazione partita. Supporta `$expand=_Product,_Batch`.
+      parameters:
+      - name: ValidityDate
+        in: path
+        required: true
+        description: Data di validità della classificazione (formato AAAA-MM-GG, senza apici).
+        schema:
+          type: string
+          format: date
+        example: '2026-06-18'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Top'
+      - $ref: '#/components/parameters/Skip'
+      - $ref: '#/components/parameters/Expand'
+      responses:
+        '200':
+          description: Elenco caratteristiche di classificazione
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClassCharacteristicListV4'
+              example:
+                '@odata.context': ../$metadata#ProductAndBatchClassification(2026-06-18)/Set(_Product(),_Batch())
+                '@odata.metadataEtag': W/"20260618081044"
+                value:
+                - Product: ANMIPABI040H7TA1GG
+                  Batch: ''
+                  ClassType: '001'
+                  CharcValuePositionNumber: '1'
+                  ClassDescription: FIORI A STELO
+                  ClfnObjectTable: MARA
+                  Characteristic: COLORE
+                  CharcInternalID: '811'
+                  ClfnObjectInternalID: '5'
+                  CharcValueDependency: '1'
+                  CharcValue: BIANCO
+                  CharcFromNumericValue: 0
+                  CharcFromNumericValueUnit: ''
+                  CharcToNumericValue: 0
+                  CharcToNumericValueUnit: ''
+                  CharcFromDecimalValue: 0
+                  CharcToDecimalValue: 0
+                  CharcFromAmount: 0
+                  CharcToAmount: 0
+                  Currency: ''
+                  CharcFromDate: null
+                  CharcToDate: null
+                  CharcFromTime: 00:00:00
+                  CharcToTime: 00:00:00
+                  ValidityStartDate: null
+                  ValidityEndDate: '9999-12-31'
+                  LastChangeDateTime: '2025-10-16T14:31:20.237236Z'
+                  RequestedValidityDate: '2026-06-18'
+                  _Batch:
+                    Plant: ''
+                    Material: ''
+                    Batch: ''
+                    BatchIsMarkedForDeletion: false
+                    MatlBatchIsInRstrcdUseStock: false
+                    Supplier: ''
+                    BatchBySupplier: ''
+                    CountryOfOrigin: ''
+                    RegionOfOrigin: ''
+                    MatlBatchAvailabilityDate: null
+                    ShelfLifeExpirationDate: null
+                    ManufactureDate: null
+                    NextInspectionDate: null
+                    LastGoodsReceiptDate: null
+                    FreeDefinedDate1: null
+                    FreeDefinedDate2: null
+                    FreeDefinedDate3: null
+                    FreeDefinedDate4: null
+                    FreeDefinedDate5: null
+                    FreeDefinedDate6: null
+                    BatchCertificationDate: null
+                    DefinitionOfBatchLevel: ''
+                    IsSubordinateBatch: false
+                    BatchIdentifyingPlant: ''
+                    CreationDateTime: null
+                    LastChangeDateTime: null
+                    ClfnObjectInternalID: '0'
+                    BatchExtWhseMgmtInternalId: 00000000-0000-0000-0000-000000000000
+                    StockSegment: ''
+                    ExportAndImportProductGroup: ''
+                    InventoryValuationType: ''
+                  _Product:
+                    Product: ANMIPABI040H7TA1GG
+                    Product_Text: ANE MIS PANDA BI 040 H7 TOS A1 GG
+                    ProductExternalID: ANMIPABI040H7TA1GG
+                    ProductOID: ''
+                    MaterialType: HAWA
+                    MaterialType_Text: Trading Goods
+                    CreationDate: '2025-10-09'
+                    CreationTime: '14:29:04'
+                    CreationDateTime: '2025-10-09T14:29:04Z'
+                    CreatedByUser: CB9980000027
+                    LastChangeDate: '2026-05-08'
+                    LastChangedByUser: CB9980000042
+                    IsMarkedForDeletion: false
+                    CrossPlantStatus: ''
+                    CrossPlantStatus_Text: ''
+                    CrossPlantStatusValidityDate: null
+                    ProductOldID: ''
+                    GrossWeight: 0
+                    PurchaseOrderQuantityUnit: ''
+                    PurchaseOrderQuantityUnit_Text: ''
+                    SourceOfSupply: ''
+                    WeightUnit: KG
+                    WeightUnit_Text: Kilogram
+                    CountryOfOrigin: ''
+                    CountryOfOrigin_Text: ''
+                    CompetitorID: ''
+                    ProductGroup: Z101
+                    ProductGroup_Text: ''
+                    BaseUnit: PC
+                    BaseUnit_Text: Piece
+                    ItemCategoryGroup: ''
+                    ItemCategoryGroup_Text: ''
+                    NetWeight: 0
+                    ProductHierarchy: ''
+                    ProductHierarchy_Text: ''
+                    Division: ''
+                    Division_Text: ''
+                    VarblPurOrdUnitIsActive: '2'
+                    VarblPurOrdUnitIsActive_Text: Active with own price
+                    VolumeUnit: ''
+                    VolumeUnit_Text: ''
+                    MaterialVolume: 0
+                    SalesStatus: ''
+                    TransportationGroup: ''
+                    TransportationGroup_Text: ''
+                    SalesStatusValidityDate: null
+                    AuthorizationGroup: ''
+                    ANPCode: '0'
+                    ANPCode_Text: ''
+                    ProductCategory: ''
+                    ProductCategory_Text: Product
+                    Brand: ''
+                    Brand_Text: ''
+                    ProcurementRule: ''
+                    ValidityStartDate: '2025-10-09'
+                    LowLevelCode: '001'
+                    ProdNoInGenProdInPrepackProd: ''
+                    ProdNoInGenProdInPrepackProd_Text: ''
+                    SerialIdentifierAssgmtProfile: ''
+                    SizeOrDimensionText: ''
+                    IndustryStandardName: ''
+                    ProductStandardID: ''
+                    InternationalArticleNumberCat: ''
+                    InternationalArticleNumberCat_Text: ''
+                    ProductIsConfigurable: false
+                    IsBatchManagementRequired: false
+                    HasEmptiesBOM: false
+                    ExternalProductGroup: ''
+                    ExternalProductGroup_Text: ''
+                    CrossPlantConfigurableProduct: ''
+                    CrossPlantConfigurableProduct_Text: ''
+                    SerialNoExplicitnessLevel: ''
+                    SerialNoExplicitnessLevel_Text: Serialization within the stock material number
+                    ProductManufacturerNumber: ''
+                    ManufacturerNumber: ''
+                    ManufacturerPartProfile: ''
+                    QltyMgmtInProcmtIsActive: false
+                    IsApprovedBatchRecordReqd: false
+                    HandlingIndicator: ''
+                    HandlingIndicator_Text: ''
+                    WarehouseProductGroup: ''
+                    WarehouseProductGroup_Text: ''
+                    WarehouseStorageCondition: ''
+                    WarehouseStorageCondition_Text: ''
+                    StandardHandlingUnitType: ''
+                    StandardHandlingUnitType_Text: ''
+                    SerialNumberProfile: ''
+                    SerialNumberProfile_Text: ''
+                    AdjustmentProfile: ''
+                    AdjustmentProfile_Text: ''
+                    PreferredUnitOfMeasure: ''
+                    PreferredUnitOfMeasure_Text: ''
+                    IsPilferable: false
+                    IsRelevantForHzdsSubstances: false
+                    QuarantinePeriod: 0
+                    TimeUnitForQuarantinePeriod: ''
+                    TimeUnitForQuarantinePeriod_Text: ''
+                    QualityInspectionGroup: ''
+                    QualityInspectionGroup_Text: ''
+                    HandlingUnitType: ''
+                    HandlingUnitType_Text: ''
+                    HasVariableTareWeight: false
+                    MaximumPackagingLength: 0
+                    MaximumPackagingWidth: 0
+                    MaximumPackagingHeight: 0
+                    MaximumCapacity: 0
+                    OvercapacityTolerance: 0
+                    UnitForMaxPackagingDimensions: ''
+                    UnitForMaxPackagingDimensions_Text: ''
+                    BaseUnitSpecificProductLength: 0
+                    BaseUnitSpecificProductWidth: 0
+                    BaseUnitSpecificProductHeight: 0
+                    ProductMeasurementUnit: ''
+                    ProductMeasurementUnit_Text: ''
+                    ProductValidStartDate: '2025-10-09'
+                    ArticleCategory: ''
+                    ArticleCategory_Text: Product
+                    ContentUnit: ''
+                    ContentUnit_Text: ''
+                    NetContent: 0
+                    ComparisonPriceQuantity: 0
+                    GrossContent: 0
+                    ProductValidEndDate: '9999-12-31'
+                    AssortmentListType: ''
+                    AssortmentListType_Text: ''
+                    HasTextilePartsWthAnimalOrigin: false
+                    ProductSeasonUsageCategory: ''
+                    IndustrySector: M
+                    IndustrySector_Text: Mechanical engineering
+                    ChangeNumber: ''
+                    MaterialRevisionLevel: ''
+                    IsActiveEntity: true
+                    LastChangeDateTime: '2026-05-08T07:05:56Z'
+                    LastChangeTime: 07:05:56
+                    DangerousGoodsIndProfile: ''
+                    ProductUUID: fa163ef8-d1e5-1fe0-a9a3-89f8412f8180
+                    ProdSupChnMgmtUUID22: '{XO{{D7b7{2feuduGI{1W0'
+                    ProductDocumentChangeNumber: ''
+                    ProductDocumentPageCount: '0'
+                    ProductDocumentPageNumber: ''
+                    OwnInventoryManagedProduct: ''
+                    OwnInventoryManagedProduct_Text: ''
+                    DocumentIsCreatedByCAD: false
+                    ProductionOrInspectionMemoTxt: ''
+                    ProductionMemoPageFormat: ''
+                    GlobalTradeItemNumberVariant: ''
+                    ProductIsHighlyViscous: false
+                    TransportIsInBulk: false
+                    ProdAllocDetnProcedure: ''
+                    ProdEffctyParamValsAreAssigned: false
+                    ProdIsEnvironmentallyRelevant: false
+                    LaboratoryOrDesignOffice: ''
+                    PackagingMaterialGroup: ''
+                    ProductIsLocked: false
+                    DiscountInKindEligibility: ''
+                    SmartFormName: ''
+                    PackingReferenceProduct: ''
+                    PackingReferenceProduct_Text: ''
+                    BasicMaterial: ''
+                    ProductDocumentNumber: ''
+                    ProductDocumentVersion: ''
+                    ProductDocumentType: ''
+                    ProductDocumentPageFormat: ''
+                    ProductConfiguration: '0'
+                    SegmentationStrategy: ''
+                    SegmentationIsRelevant: ''
+                    ProductCompositionIsRelevant: false
+                    IsChemicalComplianceRelevant: ''
+                    IsChemicalComplianceRelevant_Text: Not Decided
+                    ManufacturerBookPartNumber: ''
+                    ManufacturerBookPartNumber_Text: ''
+                    LogisticalProductCategory: ''
+                    SalesProduct: ''
+                    SalesProduct_Text: ''
+                    MaintenanceStatus: KLEVDBCG
+                    YY1_Numeroregistrazion_PRD: ''
+                    YY1_Causalescadenzaaut_PRD: ''
+                    YY1_Classeagrofarmaci_PRD: ''
+                    YY1_IndicazionediPeric_PRD: ''
+                    YY1_Datafinevaliditeti_PRD: null
+                    YY1_Codicegalleria_PRD: ''
+                    YY1_Dataterminevendita_PRD: null
+                    YY1_Dataregistrazione_PRD: null
+                    YY1_Classedipericolo_PRD: ''
+                    YY1_ProdottoBIO_PRD: false
+                    YY1_Dataetichetta_PRD: null
+                    YY1_Precursoriesplosiv_PRD: ''
+                    YY1_NumeroONU2_PRD: ''
+                    YY1_UsoPrevisto_PRD: ''
+                    YY1_Concentrazione_PRD: 0
+                    YY1_Causaledataetichet_PRD: ''
+                    YY1_NumeroCAS_PRD: ''
+                    YY1_DataScadenzaAuth_PRD: null
+                    YY1_Codiceimballo_PRD: ''
+                    YY1_Causaleterminevend_PRD: ''
+                    YY1_Principioattivo_PRD: ''
+                    YY1_Categoria_PRD: ''
+                    YY1_QuantitLimitata2_PRD: false
+                    YY1_GenereBotanico_PRD: '2015'
+                    YY1_Coefficientequanti_PRD: ''
+                - Product: ANMIPABI040H7TA1GG
+                  Batch: ''
+                  ClassType: '001'
+                  CharcValuePositionNumber: '1'
+                  ClassDescription: FIORI A STELO
+                  ClfnObjectTable: MARA
+                  Characteristic: ALTEZZA
+                  CharcInternalID: '813'
+                  ClfnObjectInternalID: '5'
+                  CharcValueDependency: '1'
+                  CharcValue: ''
+                  CharcFromNumericValue: 40
+                  CharcFromNumericValueUnit: ''
+                  CharcToNumericValue: 0
+                  CharcToNumericValueUnit: ''
+                  CharcFromDecimalValue: 40
+                  CharcToDecimalValue: 40
+                  CharcFromAmount: 0
+                  CharcToAmount: 0
+                  Currency: ''
+                  CharcFromDate: null
+                  CharcToDate: null
+                  CharcFromTime: 00:00:00
+                  CharcToTime: 00:00:00
+                  ValidityStartDate: null
+                  ValidityEndDate: '9999-12-31'
+                  LastChangeDateTime: '2025-10-16T14:31:20.237236Z'
+                  RequestedValidityDate: '2026-06-18'
+                  _Batch:
+                    Plant: ''
+                    Material: ''
+                    Batch: ''
+                    BatchIsMarkedForDeletion: false
+                    MatlBatchIsInRstrcdUseStock: false
+                    Supplier: ''
+                    BatchBySupplier: ''
+                    CountryOfOrigin: ''
+                    RegionOfOrigin: ''
+                    MatlBatchAvailabilityDate: null
+                    ShelfLifeExpirationDate: null
+                    ManufactureDate: null
+                    NextInspectionDate: null
+                    LastGoodsReceiptDate: null
+                    FreeDefinedDate1: null
+                    FreeDefinedDate2: null
+                    FreeDefinedDate3: null
+                    FreeDefinedDate4: null
+                    FreeDefinedDate5: null
+                    FreeDefinedDate6: null
+                    BatchCertificationDate: null
+                    DefinitionOfBatchLevel: ''
+                    IsSubordinateBatch: false
+                    BatchIdentifyingPlant: ''
+                    CreationDateTime: null
+                    LastChangeDateTime: null
+                    ClfnObjectInternalID: '0'
+                    BatchExtWhseMgmtInternalId: 00000000-0000-0000-0000-000000000000
+                    StockSegment: ''
+                    ExportAndImportProductGroup: ''
+                    InventoryValuationType: ''
+                  _Product:
+                    Product: ANMIPABI040H7TA1GG
+                    Product_Text: ANE MIS PANDA BI 040 H7 TOS A1 GG
+                    ProductExternalID: ANMIPABI040H7TA1GG
+                    ProductOID: ''
+                    MaterialType: HAWA
+                    MaterialType_Text: Trading Goods
+                    CreationDate: '2025-10-09'
+                    CreationTime: '14:29:04'
+                    CreationDateTime: '2025-10-09T14:29:04Z'
+                    CreatedByUser: CB9980000027
+                    LastChangeDate: '2026-05-08'
+                    LastChangedByUser: CB9980000042
+                    IsMarkedForDeletion: false
+                    CrossPlantStatus: ''
+                    CrossPlantStatus_Text: ''
+                    CrossPlantStatusValidityDate: null
+                    ProductOldID: ''
+                    GrossWeight: 0
+                    PurchaseOrderQuantityUnit: ''
+                    PurchaseOrderQuantityUnit_Text: ''
+                    SourceOfSupply: ''
+                    WeightUnit: KG
+                    WeightUnit_Text: Kilogram
+                    CountryOfOrigin: ''
+                    CountryOfOrigin_Text: ''
+                    CompetitorID: ''
+                    ProductGroup: Z101
+                    ProductGroup_Text: ''
+                    BaseUnit: PC
+                    BaseUnit_Text: Piece
+                    ItemCategoryGroup: ''
+                    ItemCategoryGroup_Text: ''
+                    NetWeight: 0
+                    ProductHierarchy: ''
+                    ProductHierarchy_Text: ''
+                    Division: ''
+                    Division_Text: ''
+                    VarblPurOrdUnitIsActive: '2'
+                    VarblPurOrdUnitIsActive_Text: Active with own price
+                    VolumeUnit: ''
+                    VolumeUnit_Text: ''
+                    MaterialVolume: 0
+                    SalesStatus: ''
+                    TransportationGroup: ''
+                    TransportationGroup_Text: ''
+                    SalesStatusValidityDate: null
+                    AuthorizationGroup: ''
+                    ANPCode: '0'
+                    ANPCode_Text: ''
+                    ProductCategory: ''
+                    ProductCategory_Text: Product
+                    Brand: ''
+                    Brand_Text: ''
+                    ProcurementRule: ''
+                    ValidityStartDate: '2025-10-09'
+                    LowLevelCode: '001'
+                    ProdNoInGenProdInPrepackProd: ''
+                    ProdNoInGenProdInPrepackProd_Text: ''
+                    SerialIdentifierAssgmtProfile: ''
+                    SizeOrDimensionText: ''
+                    IndustryStandardName: ''
+                    ProductStandardID: ''
+                    InternationalArticleNumberCat: ''
+                    InternationalArticleNumberCat_Text: ''
+                    ProductIsConfigurable: false
+                    IsBatchManagementRequired: false
+                    HasEmptiesBOM: false
+                    ExternalProductGroup: ''
+                    ExternalProductGroup_Text: ''
+                    CrossPlantConfigurableProduct: ''
+                    CrossPlantConfigurableProduct_Text: ''
+                    SerialNoExplicitnessLevel: ''
+                    SerialNoExplicitnessLevel_Text: Serialization within the stock material number
+                    ProductManufacturerNumber: ''
+                    ManufacturerNumber: ''
+                    ManufacturerPartProfile: ''
+                    QltyMgmtInProcmtIsActive: false
+                    IsApprovedBatchRecordReqd: false
+                    HandlingIndicator: ''
+                    HandlingIndicator_Text: ''
+                    WarehouseProductGroup: ''
+                    WarehouseProductGroup_Text: ''
+                    WarehouseStorageCondition: ''
+                    WarehouseStorageCondition_Text: ''
+                    StandardHandlingUnitType: ''
+                    StandardHandlingUnitType_Text: ''
+                    SerialNumberProfile: ''
+                    SerialNumberProfile_Text: ''
+                    AdjustmentProfile: ''
+                    AdjustmentProfile_Text: ''
+                    PreferredUnitOfMeasure: ''
+                    PreferredUnitOfMeasure_Text: ''
+                    IsPilferable: false
+                    IsRelevantForHzdsSubstances: false
+                    QuarantinePeriod: 0
+                    TimeUnitForQuarantinePeriod: ''
+                    TimeUnitForQuarantinePeriod_Text: ''
+                    QualityInspectionGroup: ''
+                    QualityInspectionGroup_Text: ''
+                    HandlingUnitType: ''
+                    HandlingUnitType_Text: ''
+                    HasVariableTareWeight: false
+                    MaximumPackagingLength: 0
+                    MaximumPackagingWidth: 0
+                    MaximumPackagingHeight: 0
+                    MaximumCapacity: 0
+                    OvercapacityTolerance: 0
+                    UnitForMaxPackagingDimensions: ''
+                    UnitForMaxPackagingDimensions_Text: ''
+                    BaseUnitSpecificProductLength: 0
+                    BaseUnitSpecificProductWidth: 0
+                    BaseUnitSpecificProductHeight: 0
+                    ProductMeasurementUnit: ''
+                    ProductMeasurementUnit_Text: ''
+                    ProductValidStartDate: '2025-10-09'
+                    ArticleCategory: ''
+                    ArticleCategory_Text: Product
+                    ContentUnit: ''
+                    ContentUnit_Text: ''
+                    NetContent: 0
+                    ComparisonPriceQuantity: 0
+                    GrossContent: 0
+                    ProductValidEndDate: '9999-12-31'
+                    AssortmentListType: ''
+                    AssortmentListType_Text: ''
+                    HasTextilePartsWthAnimalOrigin: false
+                    ProductSeasonUsageCategory: ''
+                    IndustrySector: M
+                    IndustrySector_Text: Mechanical engineering
+                    ChangeNumber: ''
+                    MaterialRevisionLevel: ''
+                    IsActiveEntity: true
+                    LastChangeDateTime: '2026-05-08T07:05:56Z'
+                    LastChangeTime: 07:05:56
+                    DangerousGoodsIndProfile: ''
+                    ProductUUID: fa163ef8-d1e5-1fe0-a9a3-89f8412f8180
+                    ProdSupChnMgmtUUID22: '{XO{{D7b7{2feuduGI{1W0'
+                    ProductDocumentChangeNumber: ''
+                    ProductDocumentPageCount: '0'
+                    ProductDocumentPageNumber: ''
+                    OwnInventoryManagedProduct: ''
+                    OwnInventoryManagedProduct_Text: ''
+                    DocumentIsCreatedByCAD: false
+                    ProductionOrInspectionMemoTxt: ''
+                    ProductionMemoPageFormat: ''
+                    GlobalTradeItemNumberVariant: ''
+                    ProductIsHighlyViscous: false
+                    TransportIsInBulk: false
+                    ProdAllocDetnProcedure: ''
+                    ProdEffctyParamValsAreAssigned: false
+                    ProdIsEnvironmentallyRelevant: false
+                    LaboratoryOrDesignOffice: ''
+                    PackagingMaterialGroup: ''
+                    ProductIsLocked: false
+                    DiscountInKindEligibility: ''
+                    SmartFormName: ''
+                    PackingReferenceProduct: ''
+                    PackingReferenceProduct_Text: ''
+                    BasicMaterial: ''
+                    ProductDocumentNumber: ''
+                    ProductDocumentVersion: ''
+                    ProductDocumentType: ''
+                    ProductDocumentPageFormat: ''
+                    ProductConfiguration: '0'
+                    SegmentationStrategy: ''
+                    SegmentationIsRelevant: ''
+                    ProductCompositionIsRelevant: false
+                    IsChemicalComplianceRelevant: ''
+                    IsChemicalComplianceRelevant_Text: Not Decided
+                    ManufacturerBookPartNumber: ''
+                    ManufacturerBookPartNumber_Text: ''
+                    LogisticalProductCategory: ''
+                    SalesProduct: ''
+                    SalesProduct_Text: ''
+                    MaintenanceStatus: KLEVDBCG
+                    YY1_Numeroregistrazion_PRD: ''
+                    YY1_Causalescadenzaaut_PRD: ''
+                    YY1_Classeagrofarmaci_PRD: ''
+                    YY1_IndicazionediPeric_PRD: ''
+                    YY1_Datafinevaliditeti_PRD: null
+                    YY1_Codicegalleria_PRD: ''
+                    YY1_Dataterminevendita_PRD: null
+                    YY1_Dataregistrazione_PRD: null
+                    YY1_Classedipericolo_PRD: ''
+                    YY1_ProdottoBIO_PRD: false
+                    YY1_Dataetichetta_PRD: null
+                    YY1_Precursoriesplosiv_PRD: ''
+                    YY1_NumeroONU2_PRD: ''
+                    YY1_UsoPrevisto_PRD: ''
+                    YY1_Concentrazione_PRD: 0
+                    YY1_Causaledataetichet_PRD: ''
+                    YY1_NumeroCAS_PRD: ''
+                    YY1_DataScadenzaAuth_PRD: null
+                    YY1_Codiceimballo_PRD: ''
+                    YY1_Causaleterminevend_PRD: ''
+                    YY1_Principioattivo_PRD: ''
+                    YY1_Categoria_PRD: ''
+                    YY1_QuantitLimitata2_PRD: false
+                    YY1_GenereBotanico_PRD: '2015'
+                    YY1_Coefficientequanti_PRD: ''
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  ? /sap/opu/odata4/sap/api_product_availy_info/srvd_a2x/sap/apiproductavailyinfo/0001/ProductStorageLocation(Product='{Product}',MRPArea='{MRPArea}',StorageLocation='{StorageLocation}')/SAP__self.DetermineAvailabilityAtDateTme
+  : post:
+      tags:
+      - Inventory
+      summary: Determina disponibilità prodotto a una data (Product availability)
+      operationId: determineProductAvailability
+      description: Azione OData V4 (bound) che calcola la disponibilità ATP del prodotto a una data/ora.
+      parameters:
+      - name: Product
+        in: path
+        required: true
+        schema:
+          type: string
+        example: DISTDIRS065SA1
+      - name: MRPArea
+        in: path
+        required: true
+        schema:
+          type: string
+        example: PF10
+      - name: StorageLocation
+        in: path
+        required: true
+        schema:
+          type: string
+        example: M003
+      - $ref: '#/components/parameters/CsrfToken'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DetermineAvailabilityRequest'
+            example:
+              ATPCheckingRule: A
+              ProductAvailabilityUTCDateTime: '2026-05-16T15:51:04Z'
+      responses:
+        '200':
+          description: Risultato del calcolo di disponibilità
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetermineAvailabilityResponse'
+              example:
+                '@odata.context': ../$metadata#com.sap.gateway.srvd_a2x.api_product_availy_info.v0001.D_AvailyDetmAvailyAtDteTmeR
+                '@odata.metadataEtag': W/"20260617125946"
+                AvailableQuantityInBaseUnit: 0
+                BaseUnit: PC
+                BaseUnitISOCode: PCE
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /sap/opu/odata4/sap/api_salesorder/srvd_a2x/sap/salesorder/0001/SalesOrder:
+    post:
+      tags:
+      - Sales
+      summary: Crea ordine di vendita (Create Sales Order)
+      operationId: createSalesOrder
+      description: |
+        Crea un ordine di vendita con posizioni e condizioni di prezzo (OData V4). L'header di risposta `location` contiene l'entità creata (es. `SalesOrder('285')`) e `sap-messages` i messaggi applicativi. La risposta espande `_Item/_ItemPricingElement` con l'intera procedura di prezzo.
+      parameters:
+      - $ref: '#/components/parameters/CsrfToken'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SalesOrderCreate'
+            example:
+              SalesOrderType: TA
+              SoldToParty: '1000006'
+              SalesOrganization: PF10
+              DistributionChannel: GD
+              OrganizationDivision: '10'
+              PurchaseOrderByCustomer: Created via ODV4 API
+              _Item:
+              - Product: DISTDIRS065SA1
+                RequestedQuantity: 10
+                RequestedQuantityISOUnit: PCE
+                _ItemPricingElement:
+                - ConditionType: PMP0
+                  ConditionRateAmount: 45.98
+                  ConditionCurrency: EUR
+      responses:
+        '201':
+          description: Ordine di vendita creato
+          headers:
+            location:
+              description: Entità creata.
+              schema:
+                type: string
+            sap-messages:
+              description: Messaggi applicativi SAP (JSON serializzato).
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SalesOrderCreated'
+              example:
+                '@odata.context': $metadata#SalesOrder(_Item(_ItemPricingElement()))/$entity
+                '@odata.metadataEtag': W/"20260617125751"
+                '@odata.etag': W/"SADL-202606180742134761640C~20260618074213.4761640"
+                SalesOrder: '285'
+                SalesOrderType: TA
+                SalesOrderProcessingType: ''
+                SoldToParty: '1000006'
+                SalesOrganization: PF10
+                DistributionChannel: GD
+                ReferenceDistributionChannel: GD
+                OrganizationDivision: '10'
+                SalesOffice: ''
+                SalesGroup: ''
+                SalesDistrict: ''
+                CreatedByUser: CC0000000004
+                CreationDate: '2026-06-18'
+                CreationTime: 07:41:50
+                LastChangeDateTime: '2026-06-18T07:42:13.476164Z'
+                LastChangedByUser: CC0000000004
+                PurchaseOrderByCustomer: Created via ODV4 API
+                PurchaseOrderByShipToParty: ''
+                CustomerPurchaseOrderType: ''
+                CustomerPurchaseOrderDate: null
+                CorrespncExternalReference: ''
+                CorrespncExtRefByShipToParty: ''
+                BusinessSolutionOrder: ''
+                ReferenceSDDocument: null
+                ReferenceSDDocumentCategory: null
+                SDDocumentReason: ''
+                SalesOrderDate: '2026-06-18'
+                RequestedDeliveryDate: '2026-06-18'
+                PricingDate: '2026-06-18'
+                ServicesRenderedDate: null
+                BillingDocumentDate: '2026-06-18'
+                TotalNetAmount: 459.8
+                TransactionCurrency: EUR
+                DeliveryDateTypeRule: ''
+                ShippingCondition: '01'
+                CompleteDeliveryIsDefined: false
+                SlsDocIsRlvtForProofOfDeliv: false
+                ShippingType: ''
+                ReceivingPoint: ''
+                IncotermsClassification: DAP
+                IncotermsVersion: ''
+                IncotermsLocation1: Milano
+                IncotermsLocation2: ''
+                SDPricingProcedure: Z23101
+                CustomerPriceGroup: ''
+                PriceListType: ''
+                FixedValueDate: null
+                TaxDepartureCountry: ''
+                VATRegistrationCountry: ''
+                IsEUTriangularDeal: false
+                CustomerPaymentTerms: B020
+                PaymentMethod: ''
+                BillingCompanyCode: IT10
+                ControllingArea: A000
+                CustomerAccountAssignmentGroup: '01'
+                AssignmentReference: ''
+                AccountingDocExternalReference: ''
+                CustomerCreditAccount: ''
+                HeaderBillingBlockReason: ''
+                DeliveryBlockReason: ''
+                SalesOrderApprovalReason: ''
+                SlsContrAutoAssgmtIDForSlsOrd: null
+                CustomerGroup: ''
+                AdditionalCustomerGroup1: ''
+                AdditionalCustomerGroup2: ''
+                AdditionalCustomerGroup3: ''
+                AdditionalCustomerGroup4: ''
+                AdditionalCustomerGroup5: ''
+                OverallSDProcessStatus: A
+                OverallPurchaseConfStatus: ''
+                OverallDeliveryBlockStatus: ''
+                OverallBillingBlockStatus: ''
+                OverallDeliveryStatus: A
+                TotalCreditCheckStatus: ''
+                OverallSDDocumentRejectionSts: A
+                TotalBlockStatus: ''
+                HdrGeneralIncompletionStatus: C
+                OvrlItmGeneralIncompletionSts: A
+                OverallSDDocReferenceStatus: ''
+                SalesDocApprovalStatus: ''
+                OverallChmlCmplncStatus: ''
+                OverallDangerousGoodsStatus: ''
+                OverallSafetyDataSheetStatus: ''
+                OverallTrdCmplncEmbargoSts: ''
+                OvrlTrdCmplncSnctndListChkSts: ''
+                OvrlTrdCmplncLegalCtrlChkSts: ''
+                SalesOrderDownPaymentStatus: ''
+                OverallOrdReltdBillgStatus: ''
+                SAP__Messages: []
+                _Item:
+                - '@odata.etag': W/"SADL-202606180742134761640C~20260618074213.4761640"
+                  SalesOrder: '285'
+                  SalesOrderItem: '10'
+                  HigherLevelItem: null
+                  SalesOrderItemCategory: TAN
+                  SalesOrderItemText: DIA STA DILETTA RS 065 G SIC A1
+                  Product: DISTDIRS065SA1
+                  OriginallyRequestedMaterial: DISTDIRS065SA1
+                  ProductGroup: Z101
+                  MaterialByCustomer: ''
+                  InternationalArticleNumber: ''
+                  PurchaseOrderByCustomer: Created via ODV4 API
+                  UnderlyingPurchaseOrderItem: ''
+                  CorrespncExternalReference: ''
+                  PurchaseOrderByShipToParty: ''
+                  UndrlgPurOrdItmByShipToParty: ''
+                  CorrespncExtRefByShipToParty: ''
+                  ConfdDelivQtyInOrderQtyUnit: 10
+                  OrderQuantitySAPUnit: ST
+                  OrderQuantityISOUnit: PCE
+                  RequestedQuantity: 10
+                  RequestedQuantitySAPUnit: ST
+                  RequestedQuantityISOUnit: PCE
+                  ReferenceSDDocument: null
+                  ReferenceSDDocumentItem: null
+                  ReferenceSDDocumentCategory: null
+                  BusinessSolutionOrderItem: null
+                  BusSolnOrdItemBundleItem: null
+                  ItemGrossWeight: 0
+                  ItemNetWeight: 0
+                  ItemWeightSAPUnit: KG
+                  ItemWeightISOUnit: KGM
+                  ItemVolume: 0
+                  ItemVolumeSAPUnit: ''
+                  ItemVolumeISOUnit: ''
+                  RequestedDeliveryDate: '2026-06-18'
+                  ConfirmedDeliveryDate: '2026-06-18'
+                  PricingDate: '2026-06-18'
+                  ServicesRenderedDate: null
+                  BillingDocumentDate: '2026-06-18'
+                  NetAmount: 459.8
+                  TransactionCurrency: EUR
+                  TaxAmount: 101.16
+                  Subtotal1Amount: 459.8
+                  Subtotal2Amount: 459.8
+                  Subtotal3Amount: 459.8
+                  Subtotal4Amount: 0
+                  Subtotal5Amount: 0
+                  Subtotal6Amount: 459.8
+                  CustomerGroup: ''
+                  Batch: ''
+                  Plant: PF10
+                  StorageLocation: ''
+                  ShippingPoint: ''
+                  ShippingType: ''
+                  Route: ''
+                  DeliveryPriority: '0'
+                  PartialDeliveryIsAllowed: ''
+                  MaxNmbrOfPartialDelivery: 0
+                  DeliveryDateTypeRule: ''
+                  ReceivingPoint: ''
+                  DeliveryGroup: '0'
+                  IncotermsClassification: DAP
+                  IncotermsLocation1: Milano
+                  IncotermsLocation2: ''
+                  IncotermsVersion: ''
+                  CustomerPaymentTerms: B020
+                  FixedValueDate: null
+                  CustomerPriceGroup: ''
+                  MaterialPricingGroup: ''
+                  BusinessArea: ''
+                  ProfitCenter: ''
+                  MatlAccountAssignmentGroup: '01'
+                  WBSElementExternalID: ''
+                  ItemBillingBlockReason: ''
+                  SalesDocumentRjcnReason: ''
+                  ProductConfiguration: '0'
+                  SlsContrAutoAssgmtIDForSlsOrd: null
+                  SDProcessStatus: A
+                  PurchaseConfirmationStatus: ''
+                  SDDocumentRejectionStatus: A
+                  DeliveryStatus: A
+                  BillingBlockStatus: ''
+                  ItemGeneralIncompletionStatus: A
+                  DeliveryBlockStatus: ''
+                  SlsOrderItemDownPaymentStatus: ''
+                  OrderRelatedBillingStatus: ''
+                  ChmlCmplncStatus: ''
+                  DangerousGoodsStatus: ''
+                  SafetyDataSheetStatus: ''
+                  TrdCmplncEmbargoSts: ''
+                  TrdCmplncSnctndListChkSts: ''
+                  OvrlTrdCmplncLegalCtrlChkSts: ''
+                  YY1_NumeroONU2_SDI: ''
+                  SAP__Messages: []
+                  _ItemPricingElement:
+                  - SalesOrder: '285'
+                    SalesOrderItem: '10'
+                    PricingProcedureStep: '5'
+                    PricingProcedureCounter: '1'
+                    ConditionType: ZPRP
+                    PriceElementDescription: Planned cost price
+                    ConditionCalculationType: C
+                    ConditionRateAmount: 0
+                    ConditionCurrency: EUR
+                    ConditionQuantity: 1
+                    ConditionBaseQuantity: 10
+                    ConditionQuantitySAPUnit: ST
+                    ConditionQuantityISOUnit: PCE
+                    ConditionRateRatio: null
+                    ConditionRateRatioSAPUnit: ''
+                    ConditionRateRatioISOUnit: ''
+                    ConditionAmount: 0
+                    ConditionBaseAmount: null
+                    TransactionCurrency: EUR
+                    CndnRoundingOffDiffAmount: 0
+                    ConditionInactiveReason: X
+                    ConditionClass: B
+                    ConditionControl: A
+                    ConditionOrigin: A
+                    ConditionIsForStatistics: null
+                    ConditionIsManuallyChanged: null
+                    TaxCode: null
+                    VariantCondition: null
+                    IsGroupCondition: null
+                    SAP__Messages: []
+                  - SalesOrder: '285'
+                    SalesOrderItem: '10'
+                    PricingProcedureStep: '10'
+                    PricingProcedureCounter: '1'
+                    ConditionType: ZPRS
+                    PriceElementDescription: Cost price
+                    ConditionCalculationType: C
+                    ConditionRateAmount: 0.24
+                    ConditionCurrency: EUR
+                    ConditionQuantity: 1
+                    ConditionBaseQuantity: 10
+                    ConditionQuantitySAPUnit: ST
+                    ConditionQuantityISOUnit: PCE
+                    ConditionRateRatio: null
+                    ConditionRateRatioSAPUnit: ''
+                    ConditionRateRatioISOUnit: ''
+                    ConditionAmount: 2.4
+                    ConditionBaseAmount: null
+                    TransactionCurrency: EUR
+                    CndnRoundingOffDiffAmount: 0
+                    ConditionInactiveReason: Y
+                    ConditionClass: B
+                    ConditionControl: A
+                    ConditionOrigin: A
+                    ConditionIsForStatistics: null
+                    ConditionIsManuallyChanged: null
+                    TaxCode: null
+                    VariantCondition: null
+                    IsGroupCondition: null
+                    SAP__Messages: []
+                  - SalesOrder: '285'
+                    SalesOrderItem: '10'
+                    PricingProcedureStep: '15'
+                    PricingProcedureCounter: '1'
+                    ConditionType: ZPR0
+                    PriceElementDescription: Cost price
+                    ConditionCalculationType: C
+                    ConditionRateAmount: 0.24
+                    ConditionCurrency: EUR
+                    ConditionQuantity: 1
+                    ConditionBaseQuantity: 10
+                    ConditionQuantitySAPUnit: ST
+                    ConditionQuantityISOUnit: PCE
+                    ConditionRateRatio: null
+                    ConditionRateRatioSAPUnit: ''
+                    ConditionRateRatioISOUnit: ''
+                    ConditionAmount: 2.4
+                    ConditionBaseAmount: null
+                    TransactionCurrency: EUR
+                    CndnRoundingOffDiffAmount: 0
+                    ConditionInactiveReason: Y
+                    ConditionClass: B
+                    ConditionControl: A
+                    ConditionOrigin: A
+                    ConditionIsForStatistics: null
+                    ConditionIsManuallyChanged: null
+                    TaxCode: null
+                    VariantCondition: null
+                    IsGroupCondition: null
+                    SAP__Messages: []
+                  - SalesOrder: '285'
+                    SalesOrderItem: '10'
+                    PricingProcedureStep: '60'
+                    PricingProcedureCounter: '1'
+                    ConditionType: PMP0
+                    PriceElementDescription: Manual Price
+                    ConditionCalculationType: C
+                    ConditionRateAmount: 45.98
+                    ConditionCurrency: EUR
+                    ConditionQuantity: 1
+                    ConditionBaseQuantity: 10
+                    ConditionQuantitySAPUnit: ST
+                    ConditionQuantityISOUnit: PCE
+                    ConditionRateRatio: null
+                    ConditionRateRatioSAPUnit: ''
+                    ConditionRateRatioISOUnit: ''
+                    ConditionAmount: 459.8
+                    ConditionBaseAmount: null
+                    TransactionCurrency: EUR
+                    CndnRoundingOffDiffAmount: 0
+                    ConditionInactiveReason: null
+                    ConditionClass: B
+                    ConditionControl: C
+                    ConditionOrigin: C
+                    ConditionIsForStatistics: null
+                    ConditionIsManuallyChanged: true
+                    TaxCode: null
+                    VariantCondition: null
+                    IsGroupCondition: null
+                    SAP__Messages: []
+                  - SalesOrder: '285'
+                    SalesOrderItem: '10'
+                    PricingProcedureStep: '70'
+                    PricingProcedureCounter: '1'
+                    ConditionType: ZWEB
+                    PriceElementDescription: WEB Portal Price
+                    ConditionCalculationType: C
+                    ConditionRateAmount: 0
+                    ConditionCurrency: EUR
+                    ConditionQuantity: 1
+                    ConditionBaseQuantity: 10
+                    ConditionQuantitySAPUnit: ST
+                    ConditionQuantityISOUnit: PCE
+                    ConditionRateRatio: null
+                    ConditionRateRatioSAPUnit: ''
+                    ConditionRateRatioISOUnit: ''
+                    ConditionAmount: 0
+                    ConditionBaseAmount: null
+                    TransactionCurrency: EUR
+                    CndnRoundingOffDiffAmount: 0
+                    ConditionInactiveReason: X
+                    ConditionClass: B
+                    ConditionControl: A
+                    ConditionOrigin: A
+                    ConditionIsForStatistics: null
+                    ConditionIsManuallyChanged: null
+                    TaxCode: null
+                    VariantCondition: null
+                    IsGroupCondition: null
+                    SAP__Messages: []
+                  - SalesOrder: '285'
+                    SalesOrderItem: '10'
+                    PricingProcedureStep: '100'
+                    PricingProcedureCounter: '1'
+                    ConditionType: ''
+                    PriceElementDescription: Gross Value
+                    ConditionCalculationType: C
+                    ConditionRateAmount: 45.98
+                    ConditionCurrency: EUR
+                    ConditionQuantity: 1
+                    ConditionBaseQuantity: 10
+                    ConditionQuantitySAPUnit: ST
+                    ConditionQuantityISOUnit: PCE
+                    ConditionRateRatio: null
+                    ConditionRateRatioSAPUnit: ''
+                    ConditionRateRatioISOUnit: ''
+                    ConditionAmount: 459.8
+                    ConditionBaseAmount: null
+                    TransactionCurrency: EUR
+                    CndnRoundingOffDiffAmount: null
+                    ConditionInactiveReason: null
+                    ConditionClass: null
+                    ConditionControl: null
+                    ConditionOrigin: null
+                    ConditionIsForStatistics: null
+                    ConditionIsManuallyChanged: null
+                    TaxCode: null
+                    VariantCondition: null
+                    IsGroupCondition: null
+                    SAP__Messages: []
+                  - SalesOrder: '285'
+                    SalesOrderItem: '10'
+                    PricingProcedureStep: '125'
+                    PricingProcedureCounter: '1'
+                    ConditionType: ''
+                    PriceElementDescription: Gross Value
+                    ConditionCalculationType: C
+                    ConditionRateAmount: 0
+                    ConditionCurrency: EUR
+                    ConditionQuantity: 1
+                    ConditionBaseQuantity: 10
+                    ConditionQuantitySAPUnit: ST
+                    ConditionQuantityISOUnit: PCE
+                    ConditionRateRatio: null
+                    ConditionRateRatioSAPUnit: ''
+                    ConditionRateRatioISOUnit: ''
+                    ConditionAmount: 0
+                    ConditionBaseAmount: null
+                    TransactionCurrency: EUR
+                    CndnRoundingOffDiffAmount: null
+                    ConditionInactiveReason: null
+                    ConditionClass: null
+                    ConditionControl: null
+                    ConditionOrigin: null
+                    ConditionIsForStatistics: null
+                    ConditionIsManuallyChanged: null
+                    TaxCode: null
+                    VariantCondition: null
+                    IsGroupCondition: null
+                    SAP__Messages: []
+                  - SalesOrder: '285'
+                    SalesOrderItem: '10'
+                    PricingProcedureStep: '300'
+                    PricingProcedureCounter: '1'
+                    ConditionType: ''
+                    PriceElementDescription: Sum Surcharges/Discounts
+                    ConditionCalculationType: C
+                    ConditionRateAmount: 0
+                    ConditionCurrency: EUR
+                    ConditionQuantity: 1
+                    ConditionBaseQuantity: 10
+                    ConditionQuantitySAPUnit: ST
+                    ConditionQuantityISOUnit: PCE
+                    ConditionRateRatio: null
+                    ConditionRateRatioSAPUnit: ''
+                    ConditionRateRatioISOUnit: ''
+                    ConditionAmount: 0
+                    ConditionBaseAmount: null
+                    TransactionCurrency: EUR
+                    CndnRoundingOffDiffAmount: null
+                    ConditionInactiveReason: null
+                    ConditionClass: null
+                    ConditionControl: null
+                    ConditionOrigin: null
+                    ConditionIsForStatistics: null
+                    ConditionIsManuallyChanged: null
+                    TaxCode: null
+                    VariantCondition: null
+                    IsGroupCondition: null
+                    SAP__Messages: []
+                  - SalesOrder: '285'
+                    SalesOrderItem: '10'
+                    PricingProcedureStep: '700'
+                    PricingProcedureCounter: '1'
+                    ConditionType: ''
+                    PriceElementDescription: Net Value 1
+                    ConditionCalculationType: C
+                    ConditionRateAmount: 45.98
+                    ConditionCurrency: EUR
+                    ConditionQuantity: 1
+                    ConditionBaseQuantity: 10
+                    ConditionQuantitySAPUnit: ST
+                    ConditionQuantityISOUnit: PCE
+                    ConditionRateRatio: null
+                    ConditionRateRatioSAPUnit: ''
+                    ConditionRateRatioISOUnit: ''
+                    ConditionAmount: 459.8
+                    ConditionBaseAmount: null
+                    TransactionCurrency: EUR
+                    CndnRoundingOffDiffAmount: null
+                    ConditionInactiveReason: null
+                    ConditionClass: null
+                    ConditionControl: null
+                    ConditionOrigin: null
+                    ConditionIsForStatistics: null
+                    ConditionIsManuallyChanged: null
+                    TaxCode: null
+                    VariantCondition: null
+                    IsGroupCondition: null
+                    SAP__Messages: []
+                  - SalesOrder: '285'
+                    SalesOrderItem: '10'
+                    PricingProcedureStep: '710'
+                    PricingProcedureCounter: '1'
+                    ConditionType: ''
+                    PriceElementDescription: ''
+                    ConditionCalculationType: C
+                    ConditionRateAmount: 45.98
+                    ConditionCurrency: EUR
+                    ConditionQuantity: 1
+                    ConditionBaseQuantity: 10
+                    ConditionQuantitySAPUnit: ST
+                    ConditionQuantityISOUnit: PCE
+                    ConditionRateRatio: null
+                    ConditionRateRatioSAPUnit: ''
+                    ConditionRateRatioISOUnit: ''
+                    ConditionAmount: 459.8
+                    ConditionBaseAmount: null
+                    TransactionCurrency: EUR
+                    CndnRoundingOffDiffAmount: null
+                    ConditionInactiveReason: null
+                    ConditionClass: null
+                    ConditionControl: null
+                    ConditionOrigin: null
+                    ConditionIsForStatistics: null
+                    ConditionIsManuallyChanged: null
+                    TaxCode: null
+                    VariantCondition: null
+                    IsGroupCondition: null
+                    SAP__Messages: []
+                  - SalesOrder: '285'
+                    SalesOrderItem: '10'
+                    PricingProcedureStep: '720'
+                    PricingProcedureCounter: '1'
+                    ConditionType: ''
+                    PriceElementDescription: ''
+                    ConditionCalculationType: C
+                    ConditionRateAmount: 45.98
+                    ConditionCurrency: EUR
+                    ConditionQuantity: 1
+                    ConditionBaseQuantity: 10
+                    ConditionQuantitySAPUnit: ST
+                    ConditionQuantityISOUnit: PCE
+                    ConditionRateRatio: null
+                    ConditionRateRatioSAPUnit: ''
+                    ConditionRateRatioISOUnit: ''
+                    ConditionAmount: 459.8
+                    ConditionBaseAmount: null
+                    TransactionCurrency: EUR
+                    CndnRoundingOffDiffAmount: null
+                    ConditionInactiveReason: null
+                    ConditionClass: null
+                    ConditionControl: null
+                    ConditionOrigin: null
+                    ConditionIsForStatistics: null
+                    ConditionIsManuallyChanged: null
+                    TaxCode: null
+                    VariantCondition: null
+                    IsGroupCondition: null
+                    SAP__Messages: []
+                  - SalesOrder: '285'
+                    SalesOrderItem: '10'
+                    PricingProcedureStep: '800'
+                    PricingProcedureCounter: '1'
+                    ConditionType: ''
+                    PriceElementDescription: Net Value 2
+                    ConditionCalculationType: C
+                    ConditionRateAmount: 45.98
+                    ConditionCurrency: EUR
+                    ConditionQuantity: 1
+                    ConditionBaseQuantity: 10
+                    ConditionQuantitySAPUnit: ST
+                    ConditionQuantityISOUnit: PCE
+                    ConditionRateRatio: null
+                    ConditionRateRatioSAPUnit: ''
+                    ConditionRateRatioISOUnit: ''
+                    ConditionAmount: 459.8
+                    ConditionBaseAmount: null
+                    TransactionCurrency: EUR
+                    CndnRoundingOffDiffAmount: null
+                    ConditionInactiveReason: null
+                    ConditionClass: null
+                    ConditionControl: null
+                    ConditionOrigin: null
+                    ConditionIsForStatistics: null
+                    ConditionIsManuallyChanged: null
+                    TaxCode: null
+                    VariantCondition: null
+                    IsGroupCondition: null
+                    SAP__Messages: []
+                  - SalesOrder: '285'
+                    SalesOrderItem: '10'
+                    PricingProcedureStep: '840'
+                    PricingProcedureCounter: '1'
+                    ConditionType: YZWR
+                    PriceElementDescription: Down Pay./Settlement
+                    ConditionCalculationType: B
+                    ConditionRateAmount: 0
+                    ConditionCurrency: EUR
+                    ConditionQuantity: null
+                    ConditionBaseQuantity: null
+                    ConditionQuantitySAPUnit: ''
+                    ConditionQuantityISOUnit: ''
+                    ConditionRateRatio: null
+                    ConditionRateRatioSAPUnit: ''
+                    ConditionRateRatioISOUnit: ''
+                    ConditionAmount: 0
+                    ConditionBaseAmount: 459.8
+                    TransactionCurrency: EUR
+                    CndnRoundingOffDiffAmount: 0
+                    ConditionInactiveReason: null
+                    ConditionClass: A
+                    ConditionControl: A
+                    ConditionOrigin: A
+                    ConditionIsForStatistics: null
+                    ConditionIsManuallyChanged: null
+                    TaxCode: null
+                    VariantCondition: null
+                    IsGroupCondition: null
+                    SAP__Messages: []
+                  - SalesOrder: '285'
+                    SalesOrderItem: '10'
+                    PricingProcedureStep: '855'
+                    PricingProcedureCounter: '1'
+                    ConditionType: TTX1
+                    PriceElementDescription: Output Tax
+                    ConditionCalculationType: A
+                    ConditionRateAmount: null
+                    ConditionCurrency: ''
+                    ConditionQuantity: null
+                    ConditionBaseQuantity: null
+                    ConditionQuantitySAPUnit: ''
+                    ConditionQuantityISOUnit: ''
+                    ConditionRateRatio: 22
+                    ConditionRateRatioSAPUnit: '%'
+                    ConditionRateRatioISOUnit: P1
+                    ConditionAmount: 101.16
+                    ConditionBaseAmount: 459.8
+                    TransactionCurrency: EUR
+                    CndnRoundingOffDiffAmount: 0
+                    ConditionInactiveReason: null
+                    ConditionClass: D
+                    ConditionControl: A
+                    ConditionOrigin: A
+                    ConditionIsForStatistics: null
+                    ConditionIsManuallyChanged: null
+                    TaxCode: V2
+                    VariantCondition: null
+                    IsGroupCondition: true
+                    SAP__Messages: []
+                  - SalesOrder: '285'
+                    SalesOrderItem: '10'
+                    PricingProcedureStep: '900'
+                    PricingProcedureCounter: '1'
+                    ConditionType: ''
+                    PriceElementDescription: Total Value
+                    ConditionCalculationType: C
+                    ConditionRateAmount: 56.1
+                    ConditionCurrency: EUR
+                    ConditionQuantity: 1
+                    ConditionBaseQuantity: 10
+                    ConditionQuantitySAPUnit: ST
+                    ConditionQuantityISOUnit: PCE
+                    ConditionRateRatio: null
+                    ConditionRateRatioSAPUnit: ''
+                    ConditionRateRatioISOUnit: ''
+                    ConditionAmount: 560.96
+                    ConditionBaseAmount: null
+                    TransactionCurrency: EUR
+                    CndnRoundingOffDiffAmount: null
+                    ConditionInactiveReason: null
+                    ConditionClass: null
+                    ConditionControl: null
+                    ConditionOrigin: null
+                    ConditionIsForStatistics: null
+                    ConditionIsManuallyChanged: null
+                    TaxCode: null
+                    VariantCondition: null
+                    IsGroupCondition: null
+                    SAP__Messages: []
+                  - SalesOrder: '285'
+                    SalesOrderItem: '10'
+                    PricingProcedureStep: '910'
+                    PricingProcedureCounter: '1'
+                    ConditionType: DCD1
+                    PriceElementDescription: Cash Discount Gross
+                    ConditionCalculationType: A
+                    ConditionRateAmount: null
+                    ConditionCurrency: ''
+                    ConditionQuantity: null
+                    ConditionBaseQuantity: null
+                    ConditionQuantitySAPUnit: ''
+                    ConditionQuantityISOUnit: ''
+                    ConditionRateRatio: 0
+                    ConditionRateRatioSAPUnit: '%'
+                    ConditionRateRatioISOUnit: P1
+                    ConditionAmount: 0
+                    ConditionBaseAmount: 560.96
+                    TransactionCurrency: EUR
+                    CndnRoundingOffDiffAmount: 0
+                    ConditionInactiveReason: null
+                    ConditionClass: A
+                    ConditionControl: A
+                    ConditionOrigin: A
+                    ConditionIsForStatistics: true
+                    ConditionIsManuallyChanged: null
+                    TaxCode: null
+                    VariantCondition: null
+                    IsGroupCondition: null
+                    SAP__Messages: []
+                  - SalesOrder: '285'
+                    SalesOrderItem: '10'
+                    PricingProcedureStep: '930'
+                    PricingProcedureCounter: '1'
+                    ConditionType: PCIP
+                    PriceElementDescription: Internal Price
+                    ConditionCalculationType: C
+                    ConditionRateAmount: 0.24
+                    ConditionCurrency: EUR
+                    ConditionQuantity: 1
+                    ConditionBaseQuantity: 10
+                    ConditionQuantitySAPUnit: ST
+                    ConditionQuantityISOUnit: PCE
+                    ConditionRateRatio: null
+                    ConditionRateRatioSAPUnit: ''
+                    ConditionRateRatioISOUnit: ''
+                    ConditionAmount: 2.4
+                    ConditionBaseAmount: null
+                    TransactionCurrency: EUR
+                    CndnRoundingOffDiffAmount: 0
+                    ConditionInactiveReason: null
+                    ConditionClass: B
+                    ConditionControl: A
+                    ConditionOrigin: A
+                    ConditionIsForStatistics: true
+                    ConditionIsManuallyChanged: null
+                    TaxCode: null
+                    VariantCondition: null
+                    IsGroupCondition: null
+                    SAP__Messages: []
+                  - SalesOrder: '285'
+                    SalesOrderItem: '10'
+                    PricingProcedureStep: '950'
+                    PricingProcedureCounter: '1'
+                    ConditionType: ''
+                    PriceElementDescription: Profit Margin
+                    ConditionCalculationType: C
+                    ConditionRateAmount: 45.74
+                    ConditionCurrency: EUR
+                    ConditionQuantity: 1
+                    ConditionBaseQuantity: 10
+                    ConditionQuantitySAPUnit: ST
+                    ConditionQuantityISOUnit: PCE
+                    ConditionRateRatio: null
+                    ConditionRateRatioSAPUnit: ''
+                    ConditionRateRatioISOUnit: ''
+                    ConditionAmount: 457.4
+                    ConditionBaseAmount: null
+                    TransactionCurrency: EUR
+                    CndnRoundingOffDiffAmount: null
+                    ConditionInactiveReason: null
+                    ConditionClass: null
+                    ConditionControl: null
+                    ConditionOrigin: null
+                    ConditionIsForStatistics: null
+                    ConditionIsManuallyChanged: null
+                    TaxCode: null
+                    VariantCondition: null
+                    IsGroupCondition: null
+                    SAP__Messages: []
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /sap/opu/odata4/sap/api_purchaseorder_2/srvd_a2x/sap/purchaseorder/0001/PurchaseOrder:
+    post:
+      tags:
+      - Procurement
+      summary: Crea ordine di acquisto (Create Purchase Order)
+      operationId: createPurchaseOrder
+      description: |
+        Crea un ordine di acquisto con posizioni e schedule line (OData V4). `NetPriceAmount` è opzionale. L'header `location` contiene l'entità creata (es. `PurchaseOrder('4500000141')`).
+      parameters:
+      - $ref: '#/components/parameters/CsrfToken'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PurchaseOrderCreate'
+            example:
+              PurchaseOrderType: NB
+              CompanyCode: IT10
+              PurchasingOrganization: PF10
+              PurchasingGroup: A01
+              Supplier: '1000009'
+              DocumentCurrency: EUR
+              _PurchaseOrderItem:
+              - PurchaseOrderItem: '10'
+                Plant: PF10
+                Material: TULARANCIO40
+                PurchaseOrderQuantityUnit: ST
+                OrderQuantity: 10
+                NetPriceAmount: 100.0
+                DocumentCurrency: EUR
+                _PurchaseOrderScheduleLineTP:
+                - ScheduleLine: '1'
+                  ScheduleLineDeliveryDate: '2026-06-15'
+                  ScheduleLineOrderQuantity: 10
+                  PurchaseOrderQuantityUnit: ST
+      responses:
+        '201':
+          description: Ordine di acquisto creato
+          headers:
+            location:
+              description: Entità creata.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PurchaseOrderCreated'
+              example:
+                '@odata.context': $metadata#PurchaseOrder(_PurchaseOrderItem(_PurchaseOrderScheduleLineTP()))/$entity
+                '@odata.metadataEtag': W/"20260618074302"
+                PurchaseOrder: '4500000141'
+                PurchaseOrderType: NB
+                PurchaseOrderSubtype: ''
+                PurchasingDocumentOrigin: '9'
+                PurchasingDocumentProcessCode: ''
+                CreatedByUser: CC0000000004
+                CreationDate: '2026-06-18'
+                PurchaseOrderDate: '2026-06-18'
+                LastChangeDateTime: '2026-06-18T07:43:44.366401Z'
+                ValidityStartDate: null
+                ValidityEndDate: null
+                MsgOnGoodsReceiptIsRequested: false
+                Language: EN
+                PurchaseOrderDeletionCode: ''
+                ReleaseIsNotCompleted: true
+                PurchasingCompletenessStatus: false
+                PurchasingProcessingStatus: '03'
+                PurgReleaseSequenceStatus: ''
+                ReleaseCode: ''
+                PurchasingReleaseStrategy: ''
+                PurgReasonForDocCancellation: '0'
+                CompanyCode: IT10
+                PurchasingOrganization: PF10
+                PurchasingGroup: A01
+                Supplier: '1000009'
+                ManualSupplierAddressID: ''
+                SupplierAddressID: ''
+                SupplierRespSalesPersonName: ''
+                SupplierPhoneNumber: ''
+                SupplyingSupplier: ''
+                SupplyingPlant: ''
+                InvoicingParty: '1000009'
+                Customer: ''
+                PurchaseContract: ''
+                SupplierQuotationExternalID: ''
+                QuotationSubmissionDate: null
+                ItemNumberIntervalForSubItems: '1'
+                PaymentTerms: ''
+                CashDiscount1Days: 0
+                CashDiscount2Days: 0
+                NetPaymentDays: 0
+                CashDiscount1Percent: 0
+                CashDiscount2Percent: 0
+                DownPaymentType: ''
+                DownPaymentPercentageOfTotAmt: 0
+                DownPaymentAmount: 0
+                DownPaymentDueDate: null
+                IncotermsClassification: ''
+                IncotermsTransferLocation: ''
+                IncotermsVersion: ''
+                IncotermsLocation1: ''
+                IncotermsLocation2: ''
+                IsIntrastatReportingRelevant: true
+                IsIntrastatReportingExcluded: false
+                CorrespncExternalReference: ''
+                CorrespncInternalReference: ''
+                PricingDocument: '1000000400'
+                PricingProcedure: Z23001
+                DocumentCurrency: EUR
+                ExchangeRate: 1
+                ExchangeRateIsFixed: false
+                TaxReturnCountry: IT
+                VATRegistrationCountry: IT
+                PurgAggrgdProdCmplncSuplrSts: ''
+                PurgAggrgdProdMarketabilitySts: ''
+                PurgAggrgdSftyDataSheetStatus: ''
+                PurgProdCmplncTotDngrsGoodsSts: ''
+                PurchasingCollectiveNumber: ''
+                SAP__Messages: []
+                _PurchaseOrderItem:
+                - PurchaseOrder: '4500000141'
+                  PurchaseOrderItem: '10'
+                  PurchaseOrderCategory: F
+                  DocumentCurrency: EUR
+                  PurchasingDocumentDeletionCode: ''
+                  MaterialGroup: Z101
+                  Material: TULARANCIO40
+                  MaterialType: HAWA
+                  SupplierMaterialNumber: ''
+                  SupplierSubrange: ''
+                  ManufacturerPartNmbr: ''
+                  Manufacturer: ''
+                  ManufacturerMaterial: TULARANCIO40
+                  PurchaseOrderItemText: TULIPANO ARANCIO 40
+                  ProductTypeCode: '1'
+                  CompanyCode: IT10
+                  Plant: PF10
+                  ManualDeliveryAddressID: ''
+                  ReferenceDeliveryAddressID: '119801'
+                  Customer: ''
+                  Subcontractor: ''
+                  SupplierIsSubcontractor: false
+                  CrossPlantConfigurableProduct: ''
+                  ArticleCategory: ''
+                  PlndOrderReplnmtElmntType: ''
+                  ProductPurchasePointsQtyUnit: ''
+                  ProductPurchasePointsQty: 0
+                  StorageLocation: M002
+                  PurchaseOrderQuantityUnit: ST
+                  OrderItemQtyToBaseQtyNmrtr: 1
+                  OrderItemQtyToBaseQtyDnmntr: 1
+                  NetPriceQuantity: 1
+                  IsCompletelyDelivered: false
+                  IsFinallyInvoiced: false
+                  GoodsReceiptIsExpected: true
+                  InvoiceIsExpected: true
+                  IsOrderAcknRqd: false
+                  InvoiceIsGoodsReceiptBased: false
+                  PurchaseContract: ''
+                  PurchaseContractItem: '0'
+                  PurchaseRequisition: ''
+                  PurchaseRequisitionItem: '0'
+                  RequirementTracking: ''
+                  SupplierQuotation: ''
+                  SupplierQuotationItem: '0'
+                  EvaldRcptSettlmtIsAllowed: false
+                  UnlimitedOverdeliveryIsAllowed: false
+                  OverdelivTolrtdLmtRatioInPct: 0
+                  UnderdelivTolrtdLmtRatioInPct: 0
+                  RequisitionerName: ''
+                  PlannedDeliveryDurationInDays: 1
+                  GoodsReceiptDurationInDays: 0
+                  PartialDeliveryIsAllowed: ''
+                  ConsumptionPosting: ''
+                  ServicePerformer: ''
+                  ServicePackage: '0'
+                  BaseUnit: ST
+                  PurchaseOrderItemCategory: '0'
+                  ProfitCenter: FT_FP
+                  OrderPriceUnit: ST
+                  ItemVolumeUnit: ''
+                  ItemWeightUnit: KG
+                  MultipleAcctAssgmtDistribution: ''
+                  PartialInvoiceDistribution: ''
+                  PricingDateControl: ''
+                  IsStatisticalItem: false
+                  PurchasingParentItem: '0'
+                  GoodsReceiptLatestCreationDate: null
+                  IsReturnsItem: false
+                  PurchasingOrderReason: ''
+                  IncotermsClassification: ''
+                  IncotermsTransferLocation: ''
+                  IncotermsLocation1: ''
+                  IncotermsLocation2: ''
+                  PriorSupplier: ''
+                  InternationalArticleNumber: ''
+                  IntrastatServiceCode: ''
+                  CommodityCode: ''
+                  MaterialFreightGroup: ''
+                  DiscountInKindEligibility: ''
+                  PurgItemIsBlockedForDelivery: false
+                  SupplierConfirmationControlKey: ''
+                  PurgDocOrderAcknNumber: ''
+                  PriceIsToBePrinted: true
+                  AccountAssignmentCategory: ''
+                  PurchasingInfoRecord: ''
+                  NetAmount: 1000
+                  GrossAmount: 1000
+                  EffectiveAmount: 1000
+                  Subtotal1Amount: 0
+                  Subtotal2Amount: 0
+                  Subtotal3Amount: 1000
+                  Subtotal4Amount: 0
+                  Subtotal5Amount: 0
+                  Subtotal6Amount: 0
+                  OrderQuantity: 10
+                  NetPriceAmount: 100
+                  ItemVolume: 0
+                  ItemGrossWeight: 1
+                  ItemNetWeight: 1
+                  OrderPriceUnitToOrderUnitNmrtr: 1
+                  OrdPriceUnitToOrderUnitDnmntr: 1
+                  GoodsReceiptIsNonValuated: false
+                  IsToBeAcceptedAtOrigin: false
+                  TaxCode: ''
+                  TaxJurisdiction: ''
+                  TaxCountry: ''
+                  TaxDeterminationDate: '2026-06-15'
+                  ShippingInstruction: ''
+                  MaterialRevisionLevel: ''
+                  NonDeductibleInputTaxAmount: 0
+                  StockType: ''
+                  ValuationType: ''
+                  ValuationCategory: ''
+                  ItemIsRejectedBySupplier: false
+                  PurgDocPriceDate: '2026-06-18'
+                  PurchasingInfoRecordUpdateCode: ''
+                  PurchasingPriceIsEstimated: false
+                  InvoiceIsMMServiceEntryBased: false
+                  InventorySpecialStockType: ''
+                  DeliveryDocumentType: ''
+                  IssuingStorageLocation: ''
+                  AllocationTable: ''
+                  AllocationTableItem: '0'
+                  RetailPromotion: ''
+                  PurgConfigurableItemNumber: ''
+                  PurgDocAggrgdSubitemCategory: ''
+                  PurgExternalSortNumber: '0'
+                  Batch: ''
+                  PurchasingItemIsFreeOfCharge: false
+                  DownPaymentType: ''
+                  DownPaymentPercentageOfTotAmt: 0
+                  DownPaymentAmount: 0
+                  DownPaymentDueDate: null
+                  ExpectedOverallLimitAmount: 0
+                  OverallLimitAmount: 0
+                  PurContractForOverallLimit: ''
+                  PurContractItemForOverallLimit: '0'
+                  PurgProdCmplncSupplierStatus: ''
+                  PurgProductMarketabilityStatus: ''
+                  PurgSafetyDataSheetStatus: ''
+                  PurgProdCmplncDngrsGoodsStatus: ''
+                  BR_MaterialOrigin: ''
+                  BR_MaterialUsage: ''
+                  BR_CFOPCategory: ''
+                  BR_NCM: ''
+                  ConsumptionTaxCtrlCode: ''
+                  BR_IsProducedInHouse: false
+                  ProductSeasonYear: ''
+                  ProductSeason: ''
+                  ProductCollection: ''
+                  ProductTheme: ''
+                  SeasonCompletenessStatus: ''
+                  ShippingGroupRule: ''
+                  ShippingGroupNumber: ''
+                  ProductCharacteristic1: ''
+                  ProductCharacteristic2: ''
+                  ProductCharacteristic3: ''
+                  PurgDocSubitemCategory: ''
+                  DiversionStatus: ''
+                  ReferenceDocumentNumber: ''
+                  ReferenceDocumentItem: '0'
+                  PurchaseOrderReferenceType: ''
+                  ItemHasValueAddedService: false
+                  ValAddedSrvcParentItmNumber: '0'
+                  StockSegment: ''
+                  YY1_Liquidazione_PDI: false
+                  SAP__Messages: []
+                  _PurchaseOrderScheduleLineTP:
+                  - PurchaseOrder: '4500000141'
+                    PurchaseOrderItem: '10'
+                    ScheduleLine: '1'
+                    ScheduleLineDeliveryDate: '2026-06-15'
+                    SchedLineStscDeliveryDate: '2026-06-15'
+                    PerformancePeriodStartDate: null
+                    PerformancePeriodEndDate: null
+                    ScheduleLineDeliveryTime: 00:00:00
+                    Batch: ''
+                    BatchBySupplier: ''
+                    ScheduleLineOrderQuantity: 10
+                    OpenPurchaseOrderQuantity: 10
+                    PurchaseOrderQuantityUnit: ST
+                    Currency: EUR
+                    PurchaseRequisition: ''
+                    PurchaseRequisitionItem: '0'
+                    DelivDateCategory: '1'
+                    ScheduleLineOrderDate: '2026-06-18'
+                    ProductAvailabilityDate: null
+                    LoadingDate: null
+                    LoadingTime: 00:00:00
+                    TransportationPlanningDate: null
+                    TransportationPlanningTime: 00:00:00
+                    GoodsIssueDate: null
+                    GoodsIssueTime: 00:00:00
+                    RouteSchedule: ''
+                    ProductAvailabilityTime: 00:00:00
+                    SAP__Messages: []
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /sap/opu/odata/sap/API_CV_ATTACHMENT_SRV/GetAllOriginals:
+    get:
+      tags:
+      - Attachments
+      summary: Elenco allegati di un oggetto (Attachments - prima chiamata)
+      operationId: getAllOriginals
+      description: |
+        Restituisce i metadati degli allegati collegati a un oggetto di business (OData V2). Da `media_src` / la chiave `AttachmentContentSet(...)` si ricava l'URL del contenuto binario (vedi seconda chiamata).
+      parameters:
+      - name: BusinessObjectTypeName
+        in: query
+        required: true
+        description: Tipo di oggetto di business (valore tra apici singoli, es. `'BUS1001006'`).
+        schema:
+          type: string
+        example: '''BUS1001006'''
+      - name: LinkedSAPObjectKey
+        in: query
+        required: true
+        description: Chiave dell'oggetto SAP collegato (valore tra apici singoli).
+        schema:
+          type: string
+        example: '''DISTDIRS065SA1'''
+      responses:
+        '200':
+          description: Elenco allegati
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AttachmentListV2'
+              example:
+                d:
+                  results:
+                  - __metadata:
+                      id: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_CV_ATTACHMENT_SRV/AttachmentContentSet(DocumentInfoRecordDocType='GOS',DocumentInfoRecordDocNumber='EXT51000000000115',DocumentInfoRecordDocVersion='',DocumentInfoRecordDocPart='',LogicalDocument='FA163EF8D1E51FE19AAC1B47A5320285',ArchiveDocumentID='FA163EF8D1E51FE19AAC1B47A5322285',LinkedSAPObjectKey='DISTDIRS065SA1',BusinessObjectTypeName='BUS1001006')
+                      uri: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_CV_ATTACHMENT_SRV/AttachmentContentSet(DocumentInfoRecordDocType='GOS',DocumentInfoRecordDocNumber='EXT51000000000115',DocumentInfoRecordDocVersion='',DocumentInfoRecordDocPart='',LogicalDocument='FA163EF8D1E51FE19AAC1B47A5320285',ArchiveDocumentID='FA163EF8D1E51FE19AAC1B47A5322285',LinkedSAPObjectKey='DISTDIRS065SA1',BusinessObjectTypeName='BUS1001006')
+                      type: API_CV_ATTACHMENT_SRV.AttachmentContent
+                      content_type: image/png
+                      media_src: https://my427213-api.s4hana.cloud.sap/sap/opu/odata/sap/API_CV_ATTACHMENT_SRV/AttachmentContentSet(DocumentInfoRecordDocType='GOS',DocumentInfoRecordDocNumber='EXT51000000000115',DocumentInfoRecordDocVersion='',DocumentInfoRecordDocPart='',LogicalDocument='FA163EF8D1E51FE19AAC1B47A5320285',ArchiveDocumentID='FA163EF8D1E51FE19AAC1B47A5322285',LinkedSAPObjectKey='DISTDIRS065SA1',BusinessObjectTypeName='BUS1001006')/$value
+                    DocumentInfoRecordDocType: GOS
+                    DocumentInfoRecordDocNumber: EXT51000000000115
+                    DocumentInfoRecordDocVersion: ''
+                    DocumentInfoRecordDocPart: ''
+                    LogicalDocument: FA163EF8D1E51FE19AAC1B47A5320285
+                    ArchiveDocumentID: FA163EF8D1E51FE19AAC1B47A5322285
+                    LinkedSAPObjectKey: DISTDIRS065SA1
+                    BusinessObjectTypeName: BUS1001006
+                    SemanticObject: ''
+                    WorkstationApplication: ''
+                    FileSize: '433501'
+                    FileName: Gar.png
+                    DocumentURL: ''
+                    MimeType: image/png
+                    Content: ''
+                    CreatedByUser: CB9980000042
+                    CreatedByUserFullName: Claudio Michelotti
+                    CreationDateTime: /Date(1781600012000)/
+                    BusinessObjectType: BUS1001006
+                    LastChangedByUser: ''
+                    LastChangedByUserFullName: ''
+                    ChangedDateTime: null
+                    StorageCategory: SOMU
+                    ArchiveLinkRepository: ''
+                    SAPObjectType: ''
+                    SAPObjectNodeType: ''
+                    HarmonizedDocumentType: GOS
+                    AttachmentDeletionIsAllowed: true
+                    AttachmentRenameIsAllowed: false
+                    Source: GOS
+                    AttachmentContentHash: '{sha-256}dfa1d7afd8b9aafbe0ce25df089872146d8a26fa0abd14a6730af640acf6fe8e'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  ? /sap/opu/odata/sap/API_CV_ATTACHMENT_SRV/AttachmentContentSet(DocumentInfoRecordDocType='{DocumentInfoRecordDocType}',DocumentInfoRecordDocNumber='{DocumentInfoRecordDocNumber}',DocumentInfoRecordDocVersion='{DocumentInfoRecordDocVersion}',DocumentInfoRecordDocPart='{DocumentInfoRecordDocPart}',LogicalDocument='{LogicalDocument}',ArchiveDocumentID='{ArchiveDocumentID}',LinkedSAPObjectKey='{LinkedSAPObjectKey}',BusinessObjectTypeName='{BusinessObjectTypeName}')/$value
+  : get:
+      tags:
+      - Attachments
+      summary: Scarica il contenuto di un allegato (Attachments - seconda chiamata)
+      operationId: getAttachmentContent
+      description: |
+        Restituisce il contenuto binario dell'allegato (`$value`). Le chiavi nel path provengono dalla prima chiamata. Il `Content-Type` riflette il tipo del file (es. `image/png`) e `Content-Disposition` ne riporta il nome.
+      parameters:
+      - name: DocumentInfoRecordDocType
+        in: path
+        required: true
+        schema:
+          type: string
+        example: GOS
+      - name: DocumentInfoRecordDocNumber
+        in: path
+        required: true
+        schema:
+          type: string
+        example: EXT51000000000115
+      - name: DocumentInfoRecordDocVersion
+        in: path
+        required: true
+        schema:
+          type: string
+        example: ''
+      - name: DocumentInfoRecordDocPart
+        in: path
+        required: true
+        schema:
+          type: string
+        example: ''
+      - name: LogicalDocument
+        in: path
+        required: true
+        schema:
+          type: string
+        example: FA163EF8D1E51FE19AAC1B47A5320285
+      - name: ArchiveDocumentID
+        in: path
+        required: true
+        schema:
+          type: string
+        example: FA163EF8D1E51FE19AAC1B47A5322285
+      - name: LinkedSAPObjectKey
+        in: path
+        required: true
+        schema:
+          type: string
+        example: DISTDIRS065SA1
+      - name: BusinessObjectTypeName
+        in: path
+        required: true
+        schema:
+          type: string
+        example: BUS1001006
+      responses:
+        '200':
+          description: Contenuto binario dell'allegato
+          headers:
+            Content-Disposition:
+              description: Nome del file (es. `attachment; filename="Gar.png"`).
+              schema:
+                type: string
+              example: attachment; filename*=UTF-8''Gar.png; filename="Gar.png"
+            Content-Type:
+              description: Tipo MIME del file restituito.
+              schema:
+                type: string
+              example: image/png
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+            image/png:
+              schema:
+                type: string
+                format: binary
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /sap/bc/srt/scs_ext/sap/creditmanagementaccountbyidqu1:
+    post:
+      tags:
+      - Credit Management
+      summary: Interroga conto di Credit Management (SOAP)
+      operationId: creditManagementAccountByIDQuery
+      description: |
+        Servizio SOAP che interroga il conto di Credit Management di un debitore. Body busta SOAP `text/xml`; header `SOAPAction` con l'URI dell'operazione.
+      parameters:
+      - name: SOAPAction
+        in: header
+        required: true
+        schema:
+          type: string
+        example: http://sap.com/xi/FSCM/Global/CreditManagementAccountByIDQuery_In/CreditManagementAccountByIDQuery_InRequest
+      requestBody:
+        required: true
+        content:
+          text/xml:
+            schema:
+              type: string
+              format: xml
+            example: |-
+              <soap-env:Envelope xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/">
+                <soap-env:Header/>
+                <soap-env:Body>
+                  <n0:CreditManagementAccountByIDQuery
+                      xmlns:n0="http://sap.com/xi/SAPGlobal/Global">
+                    <MessageHeader>
+                      <ID>UNIQUE_MESSAGE_ID_001</ID>
+                      <CreationDateTime>2026-05-06T10:00:00.000Z</CreationDateTime>
+                    </MessageHeader>
+                    <Selection>
+                      <DebtorPartyInternalID
+                          schemeID="PartyID"
+                          schemeAgencyID="0M728HH">0001000007</DebtorPartyInternalID>
+                      <CreditsegmentInternalID>IT10</CreditsegmentInternalID>
+                    </Selection>
+                    <LanguageCode>it</LanguageCode>
+                  </n0:CreditManagementAccountByIDQuery>
+                </soap-env:Body>
+              </soap-env:Envelope>
+      responses:
+        '200':
+          description: |
+            Risposta SOAP con i dati del conto (limite di credito, esposizione, classe di rischio, totali di impegno). Esempio dei valori restituiti: limite 500.00 EUR, esposizione 453.23 EUR (90,6%), classe di rischio "C" (Rischio di insolvenza medio).
+          content:
+            text/xml:
+              schema:
+                type: string
+                format: xml
+              example: <soap-env:Envelope xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/"><soap-env:Header/><soap-env:Body><n0:CreditManagementAccountByIDResponse xmlns:n0="http://sap.com/xi/SAPGlobal/Global" xmlns:prx="urn:sap.com:proxy:ASM:/1SAI/TASEDBF25B08B78C0A2E9D9:918"><MessageHeader><ID>FA163EF8D1E51FE19AC9A66C08A30287</ID><CreationDateTime>2026-06-17T13:05:23.216Z</CreationDateTime></MessageHeader><CreditManagementAccount><DebtorPartyInternalID schemeID="PartyID" schemeAgencyID="0M728HH">0001000007</DebtorPartyInternalID><CreditsegmentInternalID>IT10</CreditsegmentInternalID><CreditSegmentDescription languageCode="it">Segmento di credito Flora Toscana</CreditSegmentDescription><CreditWorthinessCheckingRuleCode>ST</CreditWorthinessCheckingRuleCode><CreditWorthinessCheckingSchemeCode>01</CreditWorthinessCheckingSchemeCode><SpecialAttentionRequiredIndicator>false</SpecialAttentionRequiredIndicator><BlockedIndicator>false</BlockedIndicator><BlockingReasonCodeDescription languageCode="it"/><CreditLimitAmount currencyCode="EUR">500.0</CreditLimitAmount><CreditLimitValidityPeriod><StartDate>2026-06-17</StartDate></CreditLimitValidityPeriod><CreditExposure><Amount currencyCode="EUR">453.23</Amount><Percent>90.6</Percent></CreditExposure><CreditRating><Code>        0</Code></CreditRating><CreditRiskClass><Code>C</Code><ValidityPeriod><StartDate>2025-10-10</StartDate></ValidityPeriod><Description languageCode="it">Rischio di insolvenza medio</Description></CreditRiskClass><PaymentBehaviourSummary><DaysOfSalesOutstandingAverageDuration>0 </DaysOfSalesOutstandingAverageDuration></PaymentBehaviourSummary><CommitmentTotal><CreditCommitmentTypeCode>100</CreditCommitmentTypeCode><CreditCommitmentTotalAmount currencyCode="EUR">125.66</CreditCommitmentTotalAmount><RelatedAccountsCommitmentTotalAmount currencyCode="EUR">125.66</RelatedAccountsCommitmentTotalAmount></CommitmentTotal><CommitmentTotal><CreditCommitmentTypeCode>400</CreditCommitmentTypeCode><CreditCommitmentTotalAmount currencyCode="EUR">327.57</CreditCommitmentTotalAmount><RelatedAccountsCommitmentTotalAmount currencyCode="EUR">327.57</RelatedAccountsCommitmentTotalAmount></CommitmentTotal></CreditManagementAccount></n0:CreditManagementAccountByIDResponse></soap-env:Body></soap-env:Envelope>
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          description: SOAP Fault
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Auth. Credenziali fornite a runtime, mai nel sorgente.
+  parameters:
+    Top:
+      name: $top
+      in: query
+      required: false
+      description: Numero massimo di record.
+      schema:
+        type: integer
+        minimum: 0
+      example: 10
+    Skip:
+      name: $skip
+      in: query
+      required: false
+      description: Record da saltare.
+      schema:
+        type: integer
+        minimum: 0
+    Filter:
+      name: $filter
+      in: query
+      required: false
+      description: Espressione di filtro OData.
+      schema:
+        type: string
+      example: StorageLocation eq 'M003'
+    Orderby:
+      name: $orderby
+      in: query
+      required: false
+      description: Campo/i di ordinamento.
+      schema:
+        type: string
+      example: Material
+    Select:
+      name: $select
+      in: query
+      required: false
+      description: Proprietà da restituire.
+      schema:
+        type: string
+    Expand:
+      name: $expand
+      in: query
+      required: false
+      description: Entità correlate da espandere.
+      schema:
+        type: string
+      example: _Product,_Batch
+    Count:
+      name: $count
+      in: query
+      required: false
+      description: Include il conteggio totale.
+      schema:
+        type: boolean
+    CsrfToken:
+      name: X-CSRF-Token
+      in: header
+      required: true
+      description: 'Token anti-CSRF di sessione (ottenuto con GET + header X-CSRF-Token: Fetch).'
+      schema:
+        type: string
+  responses:
+    BadRequest:
+      description: Richiesta non valida
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ODataError'
+    Unauthorized:
+      description: Credenziali mancanti o non valide
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ODataError'
+    Forbidden:
+      description: Token CSRF mancante/non valido o autorizzazioni insufficienti
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ODataError'
+  schemas:
+    ODataError:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              oneOf:
+              - type: string
+              - type: object
+                properties:
+                  lang:
+                    type: string
+                  value:
+                    type: string
+    ODataV2Metadata:
+      type: object
+      description: Metadati di entità OData V2.
+      properties:
+        id:
+          type: string
+        uri:
+          type: string
+        type:
+          type: string
+        content_type:
+          type: string
+        media_src:
+          type: string
+    MaterialStock:
+      type: object
+      description: Giacenza materiale (API_MATERIAL_STOCK_SRV).
+      properties:
+        __metadata:
+          $ref: '#/components/schemas/ODataV2Metadata'
+        Material:
+          type: string
+        Plant:
+          type: string
+        StorageLocation:
+          type: string
+        Batch:
+          type: string
+        Supplier:
+          type: string
+        Customer:
+          type: string
+        InventorySpecialStockType:
+          type: string
+        InventoryStockType:
+          type: string
+        MaterialBaseUnit:
+          type: string
+        MatlWrhsStkQtyInMatlBaseUnit:
+          type: string
+          description: Quantità a stock (decimale serializzato come stringa).
+    MaterialStockListV2:
+      type: object
+      properties:
+        d:
+          type: object
+          properties:
+            results:
+              type: array
+              items:
+                $ref: '#/components/schemas/MaterialStock'
+    Product:
+      type: object
+      description: |
+        Prodotto (API_PRODUCT). La risposta reale contiene oltre 100 campi, incluse estensioni cliente con prefisso `YY1_*_PRD`; qui i principali.
+      properties:
+        Product:
+          type: string
+        ProductType:
+          type: string
+        ProductGroup:
+          type: string
+        BaseUnit:
+          type: string
+        BaseISOUnit:
+          type: string
+        IndustrySector:
+          type: string
+        GrossWeight:
+          type: number
+        NetWeight:
+          type: number
+        WeightUnit:
+          type: string
+        CreationDate:
+          type: string
+          format: date
+        CreatedByUser:
+          type: string
+        LastChangeDate:
+          type: string
+          format: date
+        IsMarkedForDeletion:
+          type: boolean
+        ProductIsConfigurable:
+          type: boolean
+        IsBatchManagementRequired:
+          type: boolean
+        YY1_GenereBotanico_PRD:
+          type: string
+          description: Estensione cliente - genere botanico.
+        SAP__Messages:
+          type: array
+          items:
+            type: object
+    ProductListV4:
+      type: object
+      properties:
+        '@odata.context':
+          type: string
+        '@odata.metadataEtag':
+          type: string
+        '@odata.count':
+          type: integer
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+    GenereBotanicoText:
+      type: object
+      properties:
+        GenereBotanico:
+          type: string
+        Language:
+          type: string
+        Descrizione:
+          type: string
+    GenereBotanico:
+      type: object
+      properties:
+        GenereBotanico:
+          type: string
+        LastChanged:
+          type: string
+          format: date-time
+        _Texts:
+          type: array
+          items:
+            $ref: '#/components/schemas/GenereBotanicoText'
+    GenereBotanicoListV4:
+      type: object
+      properties:
+        '@odata.context':
+          type: string
+        '@odata.metadataEtag':
+          type: string
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/GenereBotanico'
+    ClassCharacteristic:
+      type: object
+      description: |
+        Caratteristica di classificazione. `ClassType` "001" = classificazione materiale, "023" = classificazione partita. `_Product` e `_Batch` sono navigazioni espandibili (qui non dettagliate nello schema).
+      properties:
+        Product:
+          type: string
+        Batch:
+          type: string
+        ClassType:
+          type: string
+        ClassDescription:
+          type: string
+        ClfnObjectTable:
+          type: string
+        Characteristic:
+          type: string
+        CharcInternalID:
+          type: string
+        CharcValue:
+          type: string
+        CharcFromNumericValue:
+          type: number
+        CharcToNumericValue:
+          type: number
+        CharcFromDecimalValue:
+          type: number
+        CharcToDecimalValue:
+          type: number
+        CharcFromAmount:
+          type: number
+        CharcToAmount:
+          type: number
+        Currency:
+          type: string
+        ValidityStartDate:
+          type: string
+          nullable: true
+        ValidityEndDate:
+          type: string
+        LastChangeDateTime:
+          type: string
+          format: date-time
+        RequestedValidityDate:
+          type: string
+          format: date
+        _Product:
+          type: object
+          description: Anagrafica prodotto espansa (struttura come Product, con campi *_Text).
+        _Batch:
+          type: object
+          description: Dati partita espansi.
+    ClassCharacteristicListV4:
+      type: object
+      properties:
+        '@odata.context':
+          type: string
+        '@odata.metadataEtag':
+          type: string
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClassCharacteristic'
+    DetermineAvailabilityRequest:
+      type: object
+      required:
+      - ATPCheckingRule
+      - ProductAvailabilityUTCDateTime
+      properties:
+        ATPCheckingRule:
+          type: string
+          example: A
+        ProductAvailabilityUTCDateTime:
+          type: string
+          format: date-time
+          example: '2026-05-16T15:51:04Z'
+    DetermineAvailabilityResponse:
+      type: object
+      properties:
+        '@odata.context':
+          type: string
+        '@odata.metadataEtag':
+          type: string
+        AvailableQuantityInBaseUnit:
+          type: number
+        BaseUnit:
+          type: string
+        BaseUnitISOCode:
+          type: string
+    SalesOrderItemPricingElement:
+      type: object
+      properties:
+        ConditionType:
+          type: string
+          example: PMP0
+        ConditionRateAmount:
+          type: number
+          nullable: true
+          example: 45.98
+        ConditionCurrency:
+          type: string
+          example: EUR
+    SalesOrderItem:
+      type: object
+      required:
+      - Product
+      - RequestedQuantity
+      properties:
+        Product:
+          type: string
+          example: DISTDIRS065SA1
+        RequestedQuantity:
+          type: number
+          example: 10
+        RequestedQuantityISOUnit:
+          type: string
+          example: PCE
+        _ItemPricingElement:
+          type: array
+          items:
+            $ref: '#/components/schemas/SalesOrderItemPricingElement'
+    SalesOrderCreate:
+      type: object
+      required:
+      - SalesOrderType
+      - SoldToParty
+      - SalesOrganization
+      - DistributionChannel
+      - OrganizationDivision
+      - _Item
+      properties:
+        SalesOrderType:
+          type: string
+          example: TA
+        SoldToParty:
+          type: string
+          example: '1000006'
+        SalesOrganization:
+          type: string
+          example: PF10
+        DistributionChannel:
+          type: string
+          example: GD
+        OrganizationDivision:
+          type: string
+          example: '10'
+        PurchaseOrderByCustomer:
+          type: string
+          example: Created via ODV4 API
+        _Item:
+          type: array
+          items:
+            $ref: '#/components/schemas/SalesOrderItem'
+    SalesOrderPricingElementOut:
+      type: object
+      description: Riga della procedura di prezzo (output, molti più campi nella risposta reale).
+      properties:
+        PricingProcedureStep:
+          type: string
+        PricingProcedureCounter:
+          type: string
+        ConditionType:
+          type: string
+        PriceElementDescription:
+          type: string
+        ConditionRateAmount:
+          type: number
+          nullable: true
+        ConditionCurrency:
+          type: string
+        ConditionAmount:
+          type: number
+        ConditionRateRatio:
+          type: number
+          nullable: true
+        TaxCode:
+          type: string
+          nullable: true
+        ConditionIsManuallyChanged:
+          type: boolean
+          nullable: true
+    SalesOrderItemOut:
+      type: object
+      properties:
+        SalesOrder:
+          type: string
+        SalesOrderItem:
+          type: string
+        Product:
+          type: string
+        RequestedQuantity:
+          type: number
+        NetAmount:
+          type: number
+        TaxAmount:
+          type: number
+        TransactionCurrency:
+          type: string
+        Plant:
+          type: string
+        SDProcessStatus:
+          type: string
+        _ItemPricingElement:
+          type: array
+          items:
+            $ref: '#/components/schemas/SalesOrderPricingElementOut'
+    SalesOrderCreated:
+      type: object
+      description: Ordine di vendita creato (campi principali; la risposta reale ne contiene molti altri).
+      properties:
+        '@odata.context':
+          type: string
+        SalesOrder:
+          type: string
+        SalesOrderType:
+          type: string
+        SoldToParty:
+          type: string
+        SalesOrganization:
+          type: string
+        DistributionChannel:
+          type: string
+        TotalNetAmount:
+          type: number
+        TransactionCurrency:
+          type: string
+        OverallSDProcessStatus:
+          type: string
+        _Item:
+          type: array
+          items:
+            $ref: '#/components/schemas/SalesOrderItemOut'
+    PurchaseOrderScheduleLine:
+      type: object
+      properties:
+        ScheduleLine:
+          type: string
+          example: '1'
+        ScheduleLineDeliveryDate:
+          type: string
+          format: date
+          example: '2026-06-15'
+        ScheduleLineOrderQuantity:
+          type: number
+          example: 10
+        PurchaseOrderQuantityUnit:
+          type: string
+          example: ST
+    PurchaseOrderItem:
+      type: object
+      required:
+      - PurchaseOrderItem
+      - Plant
+      - Material
+      - OrderQuantity
+      properties:
+        PurchaseOrderItem:
+          type: string
+          example: '10'
+        Plant:
+          type: string
+          example: PF10
+        Material:
+          type: string
+          example: TULARANCIO40
+        PurchaseOrderQuantityUnit:
+          type: string
+          example: ST
+        OrderQuantity:
+          type: number
+          example: 10
+        NetPriceAmount:
+          type: number
+          description: Prezzo netto. Campo OPZIONALE.
+          example: 100.0
+        DocumentCurrency:
+          type: string
+          example: EUR
+        _PurchaseOrderScheduleLineTP:
+          type: array
+          items:
+            $ref: '#/components/schemas/PurchaseOrderScheduleLine'
+    PurchaseOrderCreate:
+      type: object
+      required:
+      - PurchaseOrderType
+      - CompanyCode
+      - PurchasingOrganization
+      - PurchasingGroup
+      - Supplier
+      - _PurchaseOrderItem
+      properties:
+        PurchaseOrderType:
+          type: string
+          example: NB
+        CompanyCode:
+          type: string
+          example: IT10
+        PurchasingOrganization:
+          type: string
+          example: PF10
+        PurchasingGroup:
+          type: string
+          example: A01
+        Supplier:
+          type: string
+          example: '1000009'
+        DocumentCurrency:
+          type: string
+          example: EUR
+        _PurchaseOrderItem:
+          type: array
+          items:
+            $ref: '#/components/schemas/PurchaseOrderItem'
+    PurchaseOrderItemOut:
+      type: object
+      properties:
+        PurchaseOrder:
+          type: string
+        PurchaseOrderItem:
+          type: string
+        Material:
+          type: string
+        Plant:
+          type: string
+        StorageLocation:
+          type: string
+        OrderQuantity:
+          type: number
+        NetPriceAmount:
+          type: number
+        NetAmount:
+          type: number
+        PurchaseOrderQuantityUnit:
+          type: string
+        _PurchaseOrderScheduleLineTP:
+          type: array
+          items:
+            $ref: '#/components/schemas/PurchaseOrderScheduleLine'
+    PurchaseOrderCreated:
+      type: object
+      description: Ordine di acquisto creato (campi principali; la risposta reale ne contiene molti altri).
+      properties:
+        '@odata.context':
+          type: string
+        PurchaseOrder:
+          type: string
+        PurchaseOrderType:
+          type: string
+        CompanyCode:
+          type: string
+        PurchasingOrganization:
+          type: string
+        PurchasingGroup:
+          type: string
+        Supplier:
+          type: string
+        DocumentCurrency:
+          type: string
+        PricingDocument:
+          type: string
+        _PurchaseOrderItem:
+          type: array
+          items:
+            $ref: '#/components/schemas/PurchaseOrderItemOut'
+    Attachment:
+      type: object
+      description: Metadati allegato (API_CV_ATTACHMENT_SRV), come restituiti da GetAllOriginals.
+      properties:
+        __metadata:
+          $ref: '#/components/schemas/ODataV2Metadata'
+        DocumentInfoRecordDocType:
+          type: string
+        DocumentInfoRecordDocNumber:
+          type: string
+        DocumentInfoRecordDocVersion:
+          type: string
+        DocumentInfoRecordDocPart:
+          type: string
+        LogicalDocument:
+          type: string
+        ArchiveDocumentID:
+          type: string
+        LinkedSAPObjectKey:
+          type: string
+        BusinessObjectTypeName:
+          type: string
+        SemanticObject:
+          type: string
+        WorkstationApplication:
+          type: string
+        FileSize:
+          type: string
+        FileName:
+          type: string
+        DocumentURL:
+          type: string
+        MimeType:
+          type: string
+        Content:
+          type: string
+        CreatedByUser:
+          type: string
+        CreatedByUserFullName:
+          type: string
+        CreationDateTime:
+          type: string
+          description: Data SAP V2 nel formato /Date(epoch_ms)/.
+        BusinessObjectType:
+          type: string
+        LastChangedByUser:
+          type: string
+        LastChangedByUserFullName:
+          type: string
+        ChangedDateTime:
+          type: string
+          nullable: true
+        StorageCategory:
+          type: string
+        ArchiveLinkRepository:
+          type: string
+        SAPObjectType:
+          type: string
+        SAPObjectNodeType:
+          type: string
+        HarmonizedDocumentType:
+          type: string
+        AttachmentDeletionIsAllowed:
+          type: boolean
+        AttachmentRenameIsAllowed:
+          type: boolean
+        Source:
+          type: string
+        AttachmentContentHash:
+          type: string
+    AttachmentListV2:
+      type: object
+      properties:
+        d:
+          type: object
+          properties:
+            results:
+              type: array
+              items:
+                $ref: '#/components/schemas/Attachment'
