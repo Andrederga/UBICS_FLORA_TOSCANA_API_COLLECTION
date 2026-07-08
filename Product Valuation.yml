@@ -1,0 +1,87 @@
+info:
+  name: Product Valuation
+  type: http
+  seq: 12
+
+http:
+  method: GET
+  url: https://my427213-api.s4hana.cloud.sap/sap/opu/odata4/sap/api_product/srvd_a2x/sap/product/0003/ProductValuation?$top=1
+  params:
+    - name: $top
+      value: "1"
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example (1)
+    request:
+      url: https://my427213-api.s4hana.cloud.sap/sap/opu/odata4/sap/api_product/srvd_a2x/sap/product/0003/ProductValuation?$top=1
+      method: GET
+      params:
+        - name: $top
+          value: "1"
+          type: query
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: content-type
+          value: application/json;odata.metadata=minimal;charset=utf-8
+        - name: content-length
+          value: "661"
+        - name: sap-authenticated
+          value: "true"
+        - name: odata-version
+          value: "4.0"
+        - name: cache-control
+          value: no-cache, no-store, must-revalidate
+        - name: sap-server
+          value: "true"
+        - name: sap-perf-fesrec
+          value: "95435.000000"
+        - name: x-content-type-options
+          value: nosniff
+        - name: strict-transport-security
+          value: max-age=31536000; includeSubDomains
+        - name: x-xss-protection
+          value: 1; mode=block
+        - name: sap-passport-component
+          value: none
+      body:
+        type: json
+        data: |-
+          {
+            "@odata.context": "$metadata#ProductValuation",
+            "@odata.metadataEtag": "W/\"20260707085159\"",
+            "value": [
+              {
+                "@odata.etag": "W/\"SADL-202604020808130000000C~20260402080813.0000000\"",
+                "Product": "4",
+                "ValuationArea": "PF10",
+                "ValuationType": "",
+                "ValuationClass": "7920",
+                "PriceDeterminationControl": "2",
+                "StandardPrice": 10,
+                "ProductPriceUnitQuantity": 1,
+                "InventoryValuationProcedure": "S",
+                "MovingAveragePrice": 0,
+                "ValuationCategory": "",
+                "ProductUsageType": "",
+                "ProductOriginType": "",
+                "IsProducedInhouse": false,
+                "IsMarkedForDeletion": false,
+                "ValuationClassSalesOrderStock": "",
+                "ProjectStockValuationClass": "",
+                "Currency": "EUR",
+                "BaseUnit": "PC",
+                "BaseISOUnit": "PCE",
+                "SAP__Messages": []
+              }
+            ]
+          }
